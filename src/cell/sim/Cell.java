@@ -183,7 +183,7 @@ public class Cell {
 				f = false;
 			} while (req == 'B');
 			boolean end = game.next();
-			FileOutputStream out = new FileOutputStream("cell/sim/webpages/" + t + ".html");
+			FileOutputStream out = new FileOutputStream("webpages/" + t + ".html");
 			out.write(game.state().getBytes());
 			out.close();
 			game.printPlayers();

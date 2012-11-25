@@ -1,5 +1,5 @@
 *.class
-src/cell/sim/webpages/
+webpages/
 # Package Files #
 *.jar
 *.war
