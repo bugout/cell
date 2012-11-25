@@ -170,7 +170,7 @@ public class Cell {
 			if (req != 'B')
 				throw new Exception("Invalid first request");
 		}
-		for (File f : directoryFiles("cell/sim/webpages", ".html"))
+		for (File f : directoryFiles("webpages", ".html"))
 			f.delete();
 		for (int t = 1 ; t <= turns; ++t) {
 			boolean f = true;
