@@ -9,7 +9,7 @@ public class Player implements cell.sim.Player {
 	private static int versions = 0;
 	private int version = ++versions;
 
-	public String name() { return "Dumb" + (version != 1 ? " v" + version : ""); }
+	public String name() { return "Dumb" + (versions > 1 ? " v" + version : ""); }
 
 	public Direction move(int[][] board, int[] location, int[] sack,
 	                      int[][] players, int[][] traders)
@@ -58,23 +58,6 @@ public class Player implements cell.sim.Player {
 		}
 	}
 
-	/**
-	 * Returns the next location where Player will be located
-	 * 
-	 * In the world of orestis..
-	 * 
-	 * How moves are represented
-	 *   (j axis)
-	 *      E SE
-	 *      |/
-	 * N --------S (i axis)
-	 *     /|
-	 *   NW W
-	 *   
-	 * @param location
-	 * @param dir
-	 * @return
-	 */
 	private static int[] move(int[] location, Player.Direction dir)
 	{
 		int di, dj;
@@ -103,13 +86,6 @@ public class Player implements cell.sim.Player {
 		return new_location;
 	}
 
-	/**
-	 * Validates the values in the location, and returns the color in the board.
-	 * Returns -1 if the values in the location array doesn't make sense(Negative values or greater than the size of the board)
-	 * @param location
-	 * @param board
-	 * @return
-	 */
 	private static int color(int[] location, int[][] board)
 	{
 		int i = location[0];
@@ -120,12 +96,6 @@ public class Player implements cell.sim.Player {
 		return board[i][j];
 	}
 
-	/**
-	 * Clones the array
-	 * 
-	 * @param a
-	 * @return
-	 */
 	private int[] copyI(int[] a)
 	{
 		int[] b = new int [a.length];
