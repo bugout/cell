@@ -53,13 +53,13 @@ public class Cell {
 			while ((group = in.readLine()) != null) {
 				System.err.println("Group: " + group);
 				// delete all class files
-				List <File> classFiles = directoryFiles("cell/" + group, ".class");
+				List <File> classFiles = directoryFiles("src/cell/" + group, ".class");
 				System.err.print("Deleting " + classFiles.size() + " class files...   ");
 				for (File file : classFiles)
 					file.delete();
 				System.err.println("OK");
 				// compile all files
-				List <File> javaFiles = directoryFiles("cell/" + group, ".java");
+				List <File> javaFiles = directoryFiles("src/cell/" + group, ".java");
 				System.err.print("Compiling " + javaFiles.size() + " source files...   ");
 				Iterable<? extends JavaFileObject> units = fileManager.getJavaFileObjectsFromFiles(javaFiles);
 				boolean ok = compiler.getTask(null, fileManager, null, null, null, units).call();
