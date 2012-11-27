@@ -43,7 +43,7 @@ public class BoardAnalyzer {
 	}
 	
 	//based on current location, the value of marble changes
-	public 
+
 
 //	public int Lepercaun
 
