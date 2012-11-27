@@ -56,5 +56,6 @@ public class RiskyTrade extends TradeAlgo {
 	
 	private int maxAmount(int valuable, int invaluable) {
 		return Math.max(0, sack.getStock(valuable) - sack.getReserve(valuable));
+		//TODO: need to consider the future...
 	}
 }
