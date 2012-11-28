@@ -1,8 +1,5 @@
 package cell.g4;
 
-import java.util.Arrays;
-import java.util.Random;
-
 import cell.g4.movement.MoveAlgo;
 import cell.g4.movement.ShortestPathMove;
 import cell.g4.trade.MaxRateDiffTrade;
@@ -12,7 +9,8 @@ import cell.sim.Player.Direction;
 
 public class Player implements cell.sim.Player {
 	private static int versions = 0;
-	private int version = ++versions;	
+	private int version = ++versions;
+	public static int PlayerIndex = -1;
 	
 	// the map
 	private Board board = null;
@@ -35,10 +33,13 @@ public class Player implements cell.sim.Player {
 			
 			trading = new MergeTrade(board, sacks);
 			movement = new ShortestPathMove(board, sacks);
+			
+			Game.initGame(players.length);
+			
+			PlayerIndex = findPlayerIndex(location, players);
 		}
 		// routines
-		loc[0] = location[0];
-		loc[1] = location[1];		
+		loc[0] = location[0]; loc[1] = location[1];		
 		sacks.update(sack);
 		
 		
@@ -48,6 +49,18 @@ public class Player implements cell.sim.Player {
 		sacks.decrease(color);
 		
 		return dir;
+	}
+	
+	private int findPlayerIndex(int[] location, int[][] players) {
+		int index = -1;
+		for (int i = 0; i < players.length; i++) {
+			if (location[0] == players[i][0] && location[1] == players[i][1]) {
+				index = i;
+				break;
+			}
+		}
+		assert(index >= 0);
+		return index;
 	}
 
 	@Override
