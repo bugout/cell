@@ -5,10 +5,19 @@ import cell.g4.Player;
 import cell.g4.movement.TraderFinder;
 
 
-// in top 3 nearest traders
-// find a trader that we are closest to
+/*
+ *  in top 3 nearest traders, find a trader that we are the closest
+ *  if we cannot find any, take the nearest one
+ *  
+ *  Tested against NearestTradeFinder, better
+ */
+
+/*
+ * TODO: check if it is feasible to reach that trader
+ */
+
 public class ClosestTraderFinder extends TraderFinder {
-	private final static int topK = 2;
+	private final static int topK = 3;
 	private final static boolean yielding = false;
 
 	public ClosestTraderFinder(Board board) {

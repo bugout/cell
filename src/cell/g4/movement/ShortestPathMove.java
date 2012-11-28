@@ -3,6 +3,7 @@ package cell.g4.movement;
 import java.util.List;
 
 import cell.g4.Board;
+import cell.g4.Player;
 import cell.g4.Sack;
 import cell.sim.Player.Direction;
 
@@ -11,7 +12,6 @@ public class ShortestPathMove extends MoveAlgo {
 	
 	public ShortestPathMove(Board board, Sack sack) {
 		super(board, sack);
-		//traderFinder = new NearestTraderFinder(board);
 		traderFinder = new ClosestTraderFinder(board);
 	}
 	
