@@ -20,7 +20,6 @@ public class MergeTrade extends TradeAlgo {
 	@Override
 	public void trade(double[] rate, int[] request, int[] give) {
 		if (winningTrading.canWin(rate)) {
-			System.out.println("SWITCH TO WINNING");
 			current = winningTrading;
 		}
 		
