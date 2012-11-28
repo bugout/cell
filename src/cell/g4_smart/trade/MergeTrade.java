@@ -1,7 +1,7 @@
-package cell.g4.trade;
+package cell.g4_smart.trade;
 
-import cell.g4.Board;
-import cell.g4.Sack;
+import cell.g4_smart.Board;
+import cell.g4_smart.Sack;
 
 public class MergeTrade extends TradeAlgo {
 	private MaxRateDiffTrade diffTrading;
@@ -16,7 +16,7 @@ public class MergeTrade extends TradeAlgo {
 		riskTrading = new RiskyTrade(board, sack);
 		winningTrading = new WinningTrade(board, sack);
 		
-		current = diffTrading;
+		current = riskTrading;
 	}
 
 	@Override
