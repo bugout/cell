@@ -1,6 +1,7 @@
 package cell.g4.movement;
 
 import cell.g4.Board;
+import cell.g4.Game;
 import cell.g4.Player;
 import cell.g4.movement.TraderFinder;
 
@@ -25,12 +26,12 @@ public class ClosestTraderFinder extends TraderFinder {
 	}
 		
 	private boolean isClosest(int[] dists) {
-		int ourdist = dists[Player.PlayerIndex];
+		int ourdist = dists[Game.getGame().getOurIndex()];
 		for (int i = 0; i < dists.length; i++) {
 			if (dists[i] < ourdist)
 				return false;
 			
-			if (i != Player.PlayerIndex && dists[i]==ourdist) {
+			if (i != Game.getGame().getOurIndex() && dists[i]==ourdist) {
 				if (yielding) {
 					System.out.println("We are yielding");
 					return false;
@@ -66,7 +67,7 @@ public class ClosestTraderFinder extends TraderFinder {
 			indices[i] = i;
 			for (int j = 0; j < teams.length; j++) {
 				dists[i][j] = board.mindist(traders[i], teams[j]);
-				if (j == Player.PlayerIndex) {
+				if (j == Game.getGame().getOurIndex()) {
 					ourdists[i] = dists[i][j];
 				}
 			}

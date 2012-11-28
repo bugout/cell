@@ -7,12 +7,12 @@ import javax.tools.*;
 public class Cell {
 
 	// configuration info that varies less
-	private static int rounds = 50;
+	private static int rounds = 1;
 	private static boolean gui = false;
 	private static int turns = 100;
 	private static int traders = 10;
 	private static int marbles = 10;
-	private static boolean recompile = false;
+	private static boolean recompile = true;
 	private static String mapPath = "g3-traps.txt";
 	private static String playerPath = "players.list";
 
@@ -89,7 +89,11 @@ public class Cell {
 						+ " source files...   ");
 				Iterable<? extends JavaFileObject> units = fileManager
 						.getJavaFileObjectsFromFiles(javaFiles);
-				boolean ok = compiler.getTask(null, fileManager, null, null,
+				
+				ArrayList<String> options = new ArrayList<String>();
+				options.add("-g");
+				
+				boolean ok = compiler.getTask(null, fileManager, null, options,
 						null, units).call();
 				if (!ok)
 					throw new Exception("Compile error");

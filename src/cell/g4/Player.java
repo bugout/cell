@@ -8,7 +8,6 @@ import cell.g4.trade.TradeAlgo;
 public class Player implements cell.sim.Player {
 	private static int versions = 0;
 	public static int version = ++versions;
-	public static int PlayerIndex = -1;
 	
 	// the map
 	private Board board = null;
@@ -19,7 +18,9 @@ public class Player implements cell.sim.Player {
 	// movement algorithm
 	private MoveAlgo movement;
 	// trading algorithm
-	private TradeAlgo trading;	
+	private TradeAlgo trading;
+	
+	private Game game = null;
 
 	@Override
 	public Direction move(int[][] map, int[] location, int[] sack,
@@ -32,14 +33,12 @@ public class Player implements cell.sim.Player {
 			trading = new MergeTrade(board, sacks);
 			movement = new ShortestPathMove(board, sacks);
 			
-			Game.initGame(players.length);
-			
-			PlayerIndex = findPlayerIndex(location, players);
+			game = Game.initGame(location, players);
 		}
 		// routines
 		loc[0] = location[0]; loc[1] = location[1];		
 		sacks.update(sack);
-		
+		game.updateTrades(players, traders);
 		
 		Direction dir = movement.move(location, players, traders);
 		int[] new_location = board.nextLoc(location, dir);		
@@ -47,18 +46,6 @@ public class Player implements cell.sim.Player {
 		sacks.decrease(color);
 		
 		return dir;
-	}
-	
-	private int findPlayerIndex(int[] location, int[][] players) {
-		int index = -1;
-		for (int i = 0; i < players.length; i++) {
-			if (location[0] == players[i][0] && location[1] == players[i][1]) {
-				index = i;
-				break;
-			}
-		}
-		assert(index >= 0);
-		return index;
 	}
 
 	@Override
