@@ -7,7 +7,9 @@ import java.util.Random;
 
 public class Player implements cell.sim.Player, Logger {
 	
-	boolean DEBUG=true;
+	boolean DEBUG= true;
+	private int thresHold = 0;
+	private int iniMarble = 0;
 	private Random gen = new Random();
 	private int[] savedSack;
 	private Graph graph=null;
@@ -25,6 +27,18 @@ public class Player implements cell.sim.Player, Logger {
 	public Direction move(int[][] board, int[] location, int[] sack,
 			int[][] players, int[][] traders)
 	{
+		Direction dir=null;
+		if(iniMarble==0){
+			iniMarble = sack[0];
+			int l = board.length;
+			int n = (3*l*l+1)/4;
+			int p = players.length;
+			int t = traders.length;
+			thresHold = (int)(Math.sqrt(n*p/t)*1.414/2) + 1;
+			if(thresHold >= iniMarble)
+				thresHold = iniMarble - 2;
+		}
+		 
 		savedSack=sack;
 		if(graph==null)
 		{
@@ -41,7 +55,6 @@ public class Player implements cell.sim.Player, Logger {
 		nextSteps=graph.getNextStep(location, closest);
 		Node chosen=null;
 		int max=0;
-		Direction dir=null;
 		for (Node n: nextSteps)
 		{
 			int color=color(n.getLocation(),board);
@@ -89,47 +102,39 @@ public class Player implements cell.sim.Player, Logger {
 				System.err.println("You CAN'T move that way!!! Either Jiang Wu or Tianchen Yu screwed up!");
 			}
 		}
-		
+		if(chosen!=null) 
+			savedSack[chosen.color]--;
 		return dir;
 		
-		
-		/*ArrayList<Path> min=null;
-		for (ArrayList<Path> path: pathsPerTrader)
-		{
-			if(min==null)
-			{
-				min=path;
-			}
-			else
-			{
-				if(path.get(0).length<min.get(0).length)
-				{
-					min=path; 
-				}
-			}			
-		}		
-		Path chosenPath=min.get(0);  */		
-		/*for (;;) {
-			Direction dir = randomDirection();
-			int[] new_location = move(location, dir);*/
-
-	}
-
-	private Direction randomDirection()
-	{
-		switch(gen.nextInt(6)) {
-		case 0: return Direction.E;
-		case 1: return Direction.W;
-		case 2: return Direction.SE;
-		case 3: return Direction.S;
-		case 4: return Direction.N;
-		case 5: return Direction.NW;
-		default: return null;
-		}
 	}
 
 	public void trade(double[] rate, int[] request, int[] give)
 	{
+		log("data" + iniMarble);
+		log("threshold" + thresHold);
+		int highestIdx = -1;
+		int highest = 0;
+		double base =0.0;
+		for(int i = 0; i<6; i++){
+			if(savedSack[i]>highest){highest=savedSack[i]; highestIdx = i;}				
+		}
+		if(canWin(rate, savedSack))
+		{
+			for(int i=0; i<6 ;i++){
+				if(i==highestIdx)
+					give[i] = savedSack[i] - iniMarble*4;
+				else
+					give[i] = 0;
+			}
+			for(int i=0; i<6 ;i++){
+				if(i==highestIdx)
+					request[i] = 0;
+				else
+					request[i] = iniMarble*4 - savedSack[i];;
+			}
+			return;
+		}
+			
 		double rv = 0.0, gv = 0.0;
 		double lowestRate=2.1;
 		int lowestColor=-1;
@@ -140,12 +145,12 @@ public class Player implements cell.sim.Player, Logger {
 				lowestColor=i;
 			}
 		}
-		
 		for (int r = 0 ; r != 6 ; ++r)
-		{	request[r] = give[r] = 0;
-			if(savedSack[r] < 5)
+		{	
+			request[r] = give[r] = 0;
+			if(savedSack[r] < thresHold)
 			{
-				int countR=5-savedSack[r];
+				int countR=thresHold-savedSack[r];
 				request[r]=request[r]+countR;
 				rv+=rate[r]*countR;
 			}
@@ -153,21 +158,30 @@ public class Player implements cell.sim.Player, Logger {
 			{
 				if(rate[r]>lowestRate)
 				{
-					int countG=savedSack[r]-3;
+					int countG=savedSack[r]-thresHold;
 					give[r]=give[r]+countG;
 					gv+=rate[r]*countG;
 				}
 			}
 		}
-		
-		while(gv<rv)
+		int count=0;
+		while(rv>gv )
 		{
+			for(int i = 0; i<6; i++){
+				request[i] =0;
+				give[i] = 0;
+			}
+			if(count>5)
+				break;
+			else ++count;
+			/*
+			else ++count;
 			for(int i=0; i<6; i++)
 			{
-				if(savedSack[i]>5) //only one color has a count that is more than 3
+				if(savedSack[i]>thresHold) //only one color has a count that is more than threshold
 				{
 					int n=(int)((rv-gv)/rate[i]+1);
-					int maxGivable=savedSack[i]-5;
+					int maxGivable=savedSack[i]-thresHold;
 					if(maxGivable>n)
 					{
 						give[i]+=n;
@@ -187,20 +201,12 @@ public class Player implements cell.sim.Player, Logger {
 						} 
 					}
 				}
-			}
+			}*/
 			//System.out.print("infinite loops!!!!!!!!");
 		}
 		
-	/*	for (int i = 0 ; i != 10 ; ++i) {
-=======
-		for (int i = 0 ; i != 10 ; ++i) {
->>>>>>> Stashed changes
-			int j = gen.nextInt(6);
-			if (give[j] == savedSack[j]) break;
-			give[j]++;
-			gv += rate[j];
-		} */
-		for (;;) {
+		while (true) {
+			log("sec...");
 			if (rv + rate[lowestColor] >= gv) break;
 			request[lowestColor]++;
 			rv += rate[lowestColor];
@@ -251,6 +257,29 @@ public class Player implements cell.sim.Player, Logger {
 		for (int i = 0 ; i != a.length ; ++i)
 			b[i] = a[i];
 		return b;
+	}
+	
+	private boolean canWin(double[] rt,  int[] sack){
+		int highestIdx = -1;
+		int highest = 0;
+		int need = 0;
+		int give = 0;
+		double base =0.0;
+		for(int i = 0; i<6; i++){
+			if(sack[i]>highest){highest=sack[i]; highestIdx = i; base=rt[i];}				
+		}
+		give = (int)((sack[highestIdx] - iniMarble*4)*base);
+		for (int i = 0; i<6; i++){
+			if(i == highestIdx)
+				continue;
+			else{
+				need+= (int)(iniMarble*4 - sack[i])*rt[i];
+			}
+		}
+		if(give>need)
+			return true; 
+		else
+			return false;
 	}
 
 }

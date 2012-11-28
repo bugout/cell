@@ -6,6 +6,9 @@ public class Sack {
 	private int[] sacks;
 	private int[] reserves;
 	
+	private final static int MinReserve = 3;
+	private final static double MinRatio = 0.2;
+	
 	public static int InitialMarble = 0;
 	public static int WinningStock = 0;
 	
@@ -16,7 +19,7 @@ public class Sack {
 		
 		reserves = new int[6];
 		for (int i = 0; i < 6; i++)
-			reserves[i] = 5;
+			reserves[i] = MinReserve;
 	}
 	
 	public void update(int[] sack) {

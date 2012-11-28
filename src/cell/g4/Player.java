@@ -2,10 +2,8 @@ package cell.g4;
 
 import cell.g4.movement.MoveAlgo;
 import cell.g4.movement.ShortestPathMove;
-import cell.g4.trade.MaxRateDiffTrade;
 import cell.g4.trade.MergeTrade;
 import cell.g4.trade.TradeAlgo;
-import cell.sim.Player.Direction;
 
 public class Player implements cell.sim.Player {
 	private static int versions = 0;
@@ -70,6 +68,6 @@ public class Player implements cell.sim.Player {
 	
 	@Override
 	public String name() {
-		return "G4 Player" + (versions > 1 ? " v" + version : "");
+		return "G4" + (versions > 1 ? " v" + version : "");
 	}
 }

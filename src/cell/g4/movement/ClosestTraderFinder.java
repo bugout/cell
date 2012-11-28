@@ -8,8 +8,8 @@ import cell.g4.movement.TraderFinder;
 // in top 3 nearest traders
 // find a trader that we are closest to
 public class ClosestTraderFinder extends TraderFinder {
-	private final static int topK = 3;
-	private final static boolean yielding = true;
+	private final static int topK = 2;
+	private final static boolean yielding = false;
 
 	public ClosestTraderFinder(Board board) {
 		super(board);
