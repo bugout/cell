@@ -13,6 +13,7 @@ public class Player implements cell.sim.Player {
 	private Board board = null;
 	// our sack
 	private Sack sacks;
+	
 	// our location
 	private int[] loc = new int[2];
 	// movement algorithm
@@ -28,7 +29,8 @@ public class Player implements cell.sim.Player {
 		// create a map object the first time we move 
 		if (board == null) {
 			board = new Board(map);
-			sacks = new Sack(sack);
+//			sacks = new Sack(sack,board);
+			sacks = new DynamicSack(sack,board);
 			
 			trading = new MergeTrade(board, sacks);
 			movement = new ShortestPathMove(board, sacks);

@@ -7,24 +7,21 @@ import javax.tools.*;
 public class Cell {
 
 	// configuration info that varies less
-	private static int rounds = 1;
 	private static boolean gui = false;
 	private static int turns = 100;
 	private static int traders = 10;
 	private static int marbles = 10;
-	private static boolean recompile = true;
-	private static String mapPath = "g3-traps.txt";
-	private static String playerPath = "players.list";
+	private static int dim = 5;
+	private static String mapPath = "cell/map/g3-traps.txt";
+	private static String playerPath = "cell/players.list";
 
 	// return game turns
-	public static int gameTurns() {
-		return turns;
-	}
+	public static int gameTurns() { return turns; }
 
 	// list files below a certain directory
 	// can filter those having a specific extension constraint
-	private static List<File> directoryFiles(String path, String extension) {
-		List<File> allFiles = new ArrayList<File>();
+	private static List <File> directoryFiles(String path, String extension) {
+		List <File> allFiles = new ArrayList <File> ();
 		allFiles.add(new File(path));
 		int index = 0;
 		while (index != allFiles.size()) {
@@ -35,88 +32,59 @@ public class Cell {
 					allFiles.add(newFile);
 			} else if (!currentFile.getPath().endsWith(extension))
 				allFiles.remove(index);
-			else
-				index++;
+			else index++;
 		}
 		return allFiles;
 	}
 
 	// compile and load players dynamically
-	private static Player[] loadPlayers(String txtPath) throws Exception {
+	private static Player[] loadPlayers(String txtPath) {
 		// list of players
-		List<Player> playersList = new LinkedList<Player>();
-		// get file of players
-		BufferedReader in = new BufferedReader(
-				new FileReader(new File(txtPath)));
-		// get tools
-		ClassLoader loader = Cell.class.getClassLoader();
-		if (loader == null)
-			throw new Exception("Cannot load class loader");
-		JavaCompiler compiler = null;
-		StandardJavaFileManager fileManager = null;
-		// get separator
-		String sep = File.separator;
-		// load players
-		String group;
-		while ((group = in.readLine()) != null) {
-			System.err.println("Group: " + group);
-			// search for compiled files
-			File classFile = new File("src/cell" + sep + group + sep
-					+ "Player.class");
-			System.err.println(classFile.getAbsolutePath());
-			if (!classFile.exists() || recompile) {
+		List <Player> playersList = new LinkedList <Player> ();
+		try {
+			// get file of players
+			BufferedReader in = new BufferedReader(new FileReader(new File(txtPath)));
+			// get tools
+			ClassLoader loader = ToolProvider.getSystemToolClassLoader();
+			JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+			StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
+			// load players
+			String group;
+			while ((group = in.readLine()) != null) {
+				System.err.println("Group: " + group);
 				// delete all class files
-				List<File> classFiles = directoryFiles(
-						"src/cell" + sep + group, ".class");
-				System.err.print("Deleting " + classFiles.size()
-						+ " class files...   ");
+				List <File> classFiles = directoryFiles("src/cell/" + group, ".class");
+				System.err.print("Deleting " + classFiles.size() + " class files...   ");
 				for (File file : classFiles)
 					file.delete();
 				System.err.println("OK");
-				if (compiler == null)
-					compiler = ToolProvider.getSystemJavaCompiler();
-				if (compiler == null)
-					throw new Exception("Cannot load compiler");
-				if (fileManager == null)
-					fileManager = compiler.getStandardFileManager(null, null,
-							null);
-				if (fileManager == null)
-					throw new Exception("Cannot load file manager");
 				// compile all files
-				List<File> javaFiles = directoryFiles("src/cell" + sep + group,
-						".java");
-				System.err.print("Compiling " + javaFiles.size()
-						+ " source files...   ");
-				Iterable<? extends JavaFileObject> units = fileManager
-						.getJavaFileObjectsFromFiles(javaFiles);
-				
-				ArrayList<String> options = new ArrayList<String>();
-				options.add("-g");
-				
-				boolean ok = compiler.getTask(null, fileManager, null, options,
-						null, units).call();
-				if (!ok)
-					throw new Exception("Compile error");
+				List <File> javaFiles = directoryFiles("src/cell/" + group, ".java");
+				System.err.print("Compiling " + javaFiles.size() + " source files...   ");
+				Iterable<? extends JavaFileObject> units = fileManager.getJavaFileObjectsFromFiles(javaFiles);
+				boolean ok = compiler.getTask(null, fileManager, null, null, null, units).call();
+				if (!ok) throw new Exception("compile error");
 				System.err.println("OK");
+				// load class
+				System.err.print("Loading player class...   ");
+				Class playerClass = loader.loadClass("cell." + group + ".Player");
+				System.err.println("OK");
+				// set name of player and append on list
+				Player player = (Player) playerClass.newInstance();
+				playersList.add(player);
 			}
-			// load class
-			System.err.print("Loading player class...   ");
-			Class playerClass = loader.loadClass("cell." + group + ".Player");
-			System.err.println("OK");
-			// set name of player and append on list
-			Player player = (Player) playerClass.newInstance();
-			if (player == null)
-				throw new Exception("Load error");
-			playersList.add(player);
+			in.close();
+		} catch (Exception e) {
+			e.printStackTrace(System.err);
+			return null;
 		}
-		in.close();
 		return playersList.toArray(new Player[0]);
 	}
 
 	// load map
-	private static int[][] loadMap(String mapPath) throws Exception {
-		BufferedReader in = new BufferedReader(
-				new FileReader(new File(mapPath)));
+	private static int[][] loadMap(String mapPath) throws Exception
+	{
+		BufferedReader in = new BufferedReader(new FileReader(new File(mapPath)));
 		String line;
 		int[][] board = null;
 		int x = -1, i = 0;
@@ -131,7 +99,7 @@ public class Cell {
 				board = new int[dim2_1][dim2_1];
 			} else if (dim2_1 != parts.length)
 				throw new Exception("Invalid map format");
-			for (int j = 0; j != dim2_1; ++j)
+			for (int j = 0 ; j != dim2_1 ; ++j)
 				if (i != dim - 1 && abs(i - j) >= dim) {
 					if (!parts[j].equals("X"))
 						throw new Exception("Invalid map format");
@@ -154,11 +122,11 @@ public class Cell {
 	}
 
 	// names of groups
-	private static String[] loadTeamNames(String txtPath) {
-		LinkedList<String> names = new LinkedList<String>();
+	private static String[] loadTeamNames(String txtPath)
+	{
+		LinkedList <String> names = new LinkedList <String> ();
 		try {
-			BufferedReader in = new BufferedReader(new FileReader(new File(
-					txtPath)));
+			BufferedReader in = new BufferedReader(new FileReader(new File(txtPath)));
 			String line;
 			while ((line = in.readLine()) != null)
 				names.add(line);
@@ -170,93 +138,64 @@ public class Cell {
 		return names.toArray(new String[0]);
 	}
 
-	public static void main(String[] args) throws Exception {
-		// starting marbles
+	public static void main(String[] args) throws Exception
+	{
+		// board size
 		if (args.length > 1)
-			marbles = Integer.parseInt(args[1]);
-		// traders
+			dim = Integer.parseInt(args[1]);
+		// starting marbles
 		if (args.length > 2)
-			traders = Integer.parseInt(args[2]);
-		// game turns
+			marbles = Integer.parseInt(args[2]);
+		// traders
 		if (args.length > 3)
-			turns = Integer.parseInt(args[3]);
-		// map path
-		String sep = File.separator;
+			traders = Integer.parseInt(args[3]);
+		// game turns
 		if (args.length > 4)
-			mapPath = args[4];
-		else
-			mapPath = "cell" + sep + "map" + sep + mapPath;
-		// players path
+			turns = Integer.parseInt(args[4]);
+		// map path
 		if (args.length > 5)
-			playerPath = args[5];
-		else
-			playerPath = "cell" + sep + playerPath;
-
-		// **** Hack Simulator ****
-		int[] totalranks = new int[10];
-
-		for (int rid = 0; rid < rounds; rid++) {
-
-			Cell game = new Cell();
-
-			game.printPlayers();
-			game.printTraders();
-			HTTPServer server = null;
-			int refresh = 0;
-			char req = 'X';
-			if (gui) {
-				server = new HTTPServer();
-				while ((req = server.nextRequest(0)) == 'I')
-					;
-				if (req != 'B')
-					throw new Exception("Invalid first request");
-			}
-			for (File f : directoryFiles("webpages", ".html"))
-				f.delete();
-			FileOutputStream out = new FileOutputStream("webpages/index.html");
+			mapPath = args[5];
+		// players path
+		if (args.length > 6)
+			playerPath = args[6];
+		Cell game = new Cell();
+		game.printPlayers();
+		game.printTraders();
+		HTTPServer server = null;
+		int refresh = 0;
+		char req = 'X';
+		if (gui) {
+			server = new HTTPServer();
+			while ((req = server.nextRequest(0)) == 'I');
+			if (req != 'B')
+				throw new Exception("Invalid first request");
+		}
+		for (File f : directoryFiles("webpages", ".html"))
+			f.delete();
+		for (int t = 1 ; t <= turns; ++t) {
+			boolean f = true;
+			if (server != null) do {
+				if (!f) refresh = 0;
+				server.replyState(game.state(), refresh);
+				while ((req = server.nextRequest(0)) == 'I');
+				if (req == 'S') refresh = 0;
+				else if (req == 'P') refresh = 1;
+				f = false;
+			} while (req == 'B');
+			boolean end = game.next();
+			FileOutputStream out = new FileOutputStream("webpages/" + t + ".html");
 			out.write(game.state().getBytes());
 			out.close();
-			for (int t = 1; t <= turns; ++t) {
-				boolean f = true;
-				if (server != null)
-					do {
-						if (!f)
-							refresh = 0;
-						server.replyState(game.state(), refresh);
-						while ((req = server.nextRequest(0)) == 'I')
-							;
-						if (req == 'S')
-							refresh = 0;
-						else if (req == 'P')
-							refresh = 1;
-						f = false;
-					} while (req == 'B');
-				boolean end = game.next();
-				out = new FileOutputStream("webpages/" + t + ".html");
-				out.write(game.state().getBytes());
-				out.close();
-				game.printPlayers();
-				if (end)
-					break;
-			}
-			int[] ranks = game.rank();
-
-			for (int i = 0; i < game.players.length; i++)
-				totalranks[i] += ranks[i];
-
-			if (server != null) {
-				server.replyState(game.state(), 0);
-				while ((req = server.nextRequest(2000)) == 'I')
-					;
-			}
-			if (server != null)
-				server.close();
+			game.printPlayers();
+			if (end) break;
 		}
-		
-		for (int i = 0; i < 10; i++) {
-			System.err.println("Average rank: " + 1.0 * totalranks[i]);
+		game.rank();
+		if (server != null) {
+			server.replyState(game.state(), refresh);
+			while ((req = server.nextRequest(2000)) == 'I');
+			if (req != 'X')
+				throw new Exception("Invalid last request");
 		}
-
 	}
 
 	private Player[] players;
@@ -269,125 +208,59 @@ public class Cell {
 	private int[] round;
 	private int[] count;
 	private boolean[] in;
-	private int dim;
 	private int turn;
 	private int trades;
 	private int conflicts;
 
-	private static int abs(int x) {
-		return x < 0 ? -x : x;
-	}
+	private static int abs(int x) { return x < 0 ? -x : x; }
 
-	private String state() {
+	private String state()
+	{
 		int pixels = 800;
-		String title = "CELL";
+		String title = "PPS Cell";
 		StringBuffer buf = new StringBuffer("");
 		buf.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n");
 		buf.append("<html xmlns=\"http://www.w3.org/1999/xhtml\" dir=\"ltr\" lang=\"en-US\" xml:lang=\"en\">\n");
 		buf.append("<head>\n");
-		buf.append(" <meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-7\" />\n");
-		buf.append(" <link rel=\"shortcut icon\" href=\"cell/icon.ico\" />\n");
 		buf.append(" <title>" + title + "</title>\n");
-		buf.append(" <style type=\"text/css\">\n");
-		buf.append("  a:link {text-decoration: none; color: blue;}\n");
-		buf.append("  a:visited {text-decoration: none; color: blue;}\n");
-		buf.append("  a:hover {text-decoration: none; color: red;}\n");
-		buf.append("  a:active {text-decoration: none; color: blue;}\n");
-		buf.append(" </style>\n");
+		buf.append(" <style>a:hover {color:red;}</style>\n");
 		buf.append("</head>\n");
 		buf.append("<body>\n");
-		// general part
-		buf.append(" <div style=\"width:" + (pixels + 400)
-				+ "px; margin-left:auto; margin-right: auto;\">\n");
-		// left part
-		buf.append("  <div style=\"width: 400px; float: left;\">\n");
-		// space above
-		buf.append("   <div style=\"width: 400px; height: 25px;\"></div>\n");
+		buf.append(" <div style=\"width:" + (pixels + 550) + "px; margin-left:auto; margin-right: auto;\">\n");
+		buf.append("  <div style=\"width: 200px; float: left;\">\n");
+		buf.append("   <div style=\"width: 200px; height: 120px;\"></div>\n");
 		buf.append("   <div style=\"clear:both;\"></div>\n");
-		// array of results below buttons
-		buf.append("   <div style=\"width: 400px; float: left;\">\n");
-		// empty up left square
-		buf.append("    <div style=\"width: 40px; height: 50px; float:left;\"></div>\n");
-		// color squares
-		String[] colors = { "red", "green", "blue", "yellow", "purple",
-				"orange" };
-		for (String color : colors)
-			buf.append("    <div style=\"width: 44px; height: 44px; float:left; border: 3px solid black; background-color: "
-					+ color + "\"></div>\n");
-		// empty up right square
-		buf.append("    <div style=\"width: 60px; height: 50px; float:left;\"></div>\n");
-		buf.append("    <div style=\"clear:both;\"></div>\n");
-		// result lines
-		for (int p = 0; p != players.length; ++p) {
-			// player name
-			buf.append("    <div style=\"width: 34px; height: 44px; float:left; border: 3px solid black; text-align: center;");
-			if (in[p])
-				buf.append("\n");
-			else
-				buf.append(" text-decoration: line-through;\n");
-			buf.append("                font-size: 25px; font-weight: bold; font-family: 'Comic Sans MS', cursive, sans-serif\">"
-					+ (p + 1) + "</div>\n");
-			int total = 0;
-			// marble score per color
-			buf.append("    <div style=\"width: 294px; height: 44px; float: left; border: 3px solid black;\">\n");
-			for (int r = 0; r != 6; ++r) {
-				String s = "";
-				if (in[p])
-					s += sacks[p][r];
-				buf.append("     <div style=\"width: 49px; height: 44px; float:left; text-align: center; font-size: 20px;\n");
-				buf.append("                 font-weight: bold; font-family: 'Comic Sans MS', cursive, sans-serif\">"
-						+ s + "</div>\n");
-				total += sacks[p][r];
-			}
-			buf.append("    </div>\n");
-			// total marbles
-			buf.append("    <div style=\"width: 54px; height: 44px; float:left; border: 3px solid black; text-align: center;\n");
-			buf.append("                font-size: 20px; font-weight: bold; font-family: 'Comic Sans MS', cursive, sans-serif\">"
-					+ total + "</div>\n");
-			buf.append("    <div style=\"clear:both;\"></div>\n");
-		}
-		// close result array
-		buf.append("   </div>\n");
-		// space between buttons and array
-		buf.append("   <div style=\"width: 400px; height: 100px; float:left;\"></div>\n");
+		buf.append("   <a href=\"play\"><div style=\"width: 200px; height: 70px; float:left; cursor: pointer; text-align: center; font-size: 40px;");
+		buf.append("                              color: black; font-weight: bold; font-family: 'Comic Sans MS', cursive, sans-serif\">Play</div></a>\n");
 		buf.append("   <div style=\"clear:both;\"></div>\n");
-		// button 1
-		buf.append("   <div style=\"width: 400px; height: 70px; float:left; cursor: pointer; text-align: center; font-size: 40px;\n");
-		buf.append("               font-weight: bold; font-family: 'Comic Sans MS', cursive, sans-serif\"><a href=\"play\">Play</a></div>\n");
+		buf.append("   <a href=\"stop\"><div style=\"width: 200px; height: 70px; float:left; cursor: pointer; text-align: center; font-size: 40px;");
+		buf.append("                              color: black; font-weight: bold; font-family: 'Comic Sans MS', cursive, sans-serif\">Stop</div></a>\n");
 		buf.append("   <div style=\"clear:both;\"></div>\n");
-		// button 2
-		buf.append("   <div style=\"width: 400px; height: 70px; float:left; cursor: pointer; text-align: center; font-size: 40px;\n");
-		buf.append("               font-weight: bold; font-family: 'Comic Sans MS', cursive, sans-serif\"><a href=\"stop\">Stop</a></div>\n");
-		buf.append("   <div style=\"clear:both;\"></div>\n");
-		// button 3
-		buf.append("   <div style=\"width: 400px; height: 70px; float:left; cursor: pointer; text-align: center; font-size: 40px;\n");
-		buf.append("               font-weight: bold; font-family: 'Comic Sans MS', cursive, sans-serif\"><a href=\"step\">Step</a></div>\n");
-		buf.append("   <div style=\"clear:both;\"></div>\n");
-		// close left part of page
+		buf.append("   <a href=\"step\"><div style=\"width: 200px; height: 70px; float:left; cursor: pointer; text-align: center; font-size: 40px;");
+		buf.append("                              color: black; font-weight: bold; font-family: 'Comic Sans MS', cursive, sans-serif\">Step</div></a>\n");
 		buf.append("  </div>\n");
-		// hexagon
 		buf.append("  <div style=\"width:" + pixels + "px; float: left;\">\n");
+		String[] colors = {"red", "green", "blue", "yellow", "purple", "orange"};
 		int dim2_1 = board.length;
 		int dim = (dim2_1 + 1) >> 1;
 		int b = (pixels / dim2_1) - 6;
-		for (int i = 0; i != dim2_1; ++i) {
-			buf.append("   <div style=\"height:" + b
-					+ "px; border: 3px solid none;\">\n");
+		for (int i = 0 ; i != dim2_1 ; ++i) {
+			buf.append("   <div style=\"height:" + b + "px; border: 3px solid none;\">\n");
 			int margin = 0;
-			for (int j = 0; j != dim2_1; ++j)
+			for (int j = 0 ; j != dim2_1 ; ++j)
 				if (i != dim - 1 && abs(i - j) >= dim)
 					margin += b >> 1;
 			boolean first = true;
-			for (int j = 0; j != dim2_1; ++j) {
+			for (int j = 0 ; j != dim2_1 ; ++j) {
 				if (i != dim - 1 && abs(i - j) >= dim)
 					continue;
 				// extract items in block
-				int[] location = { i, j };
+				int[] location = {i, j};
 				String items = "";
-				for (int p = 0; p != players.length; ++p)
+				for (int p = 0 ; p != players.length ; ++p)
 					if (in[p] && same_location(player_location[p], location))
 						items += "" + (p + 1);
-				for (int t = 0; t != traders; ++t)
+				for (int t = 0 ; t != traders ; ++t)
 					if (same_location(trader_location[t], location))
 						items += "L";
 				// create style of block
@@ -413,33 +286,51 @@ public class Cell {
 			buf.append("   </div>\n");
 			buf.append("   <div style=\"clear:both;\"></div>\n");
 		}
-		// close right side of page
 		buf.append("  </div>\n");
-		// close page
+		buf.append("  <div style=\"width: 350px; float: left;\">\n");
+		buf.append("   <div style=\"width: 350px; height: 50px; float:left;\"></div>");
+		buf.append("   <div style=\"clear:both;\"></div>\n");
+		buf.append("   <div style=\"width: 50px; height: 50px; float:left;\"></div>");
+		for (String color : colors)
+			buf.append("   <div style=\"width: 44px; height: 44px; float:left; border: 3px solid black; background-color: " + color + "\"></div>");
+		buf.append("   <div style=\"clear:both;\"></div>\n");
+		for (int p = 0 ; p != players.length ; ++p) {
+			buf.append("   <div style=\"width: 44px; height: 44px; float:left; border: 3px solid black; text-align: center;");
+			buf.append("               font-size: 25px; font-weight: bold; font-family: 'Comic Sans MS', cursive, sans-serif\">" + (p + 1) + "</div>\n");
+			buf.append("   <div style=\"width: 294px; height: 44px; float: left; border: 3px solid black;\">\n");
+			for (int r = 0 ; r != 6 ; ++r) {
+				buf.append("    <div style=\"width: 49px; height: 44px; float:left; text-align: center; font-size: 20px;");
+				buf.append("                font-weight: bold; font-family: 'Comic Sans MS', cursive, sans-serif\">" + sacks[p][r] + "</div>\n");
+			}
+			buf.append("   </div>\n");
+			buf.append("   <div style=\"clear:both;\"></div>\n");
+		}
+		buf.append("  </div>\n");
 		buf.append(" </div>\n");
 		buf.append("</body>\n");
 		buf.append("</html>\n");
 		return buf.toString();
 	}
 
-	private void printPlayers() {
+	private void printPlayers()
+	{
 		System.err.println("---------------");
-		for (int p = 0; p != players.length; ++p) {
+		for (int p = 0 ; p != players.length ; ++p) {
 			int[] location = player_location[p];
 			int i = location[0];
 			int j = location[1];
-			System.err.print("Player " + p + ": " + i + "," + j + " ["
-					+ sacks[p][0]);
-			for (int r = 1; r != 6; ++r)
+			System.err.print("Player " + p + ": " + i + "," + j + " [" + sacks[p][0]);
+			for (int r = 1 ; r != 6 ; ++r)
 				System.err.print("," + sacks[p][r]);
 			System.err.println("]");
 		}
 		System.err.println("---------------");
 	}
 
-	private void printTraders() {
+	private void printTraders()
+	{
 		System.err.println("---------------");
-		for (int t = 0; t != traders; ++t) {
+		for (int t = 0 ; t != traders ; ++t) {
 			int[] location = trader_location[t];
 			int i = location[0];
 			int j = location[1];
@@ -448,11 +339,12 @@ public class Cell {
 		System.err.println("---------------");
 	}
 
-	private void printBoard() {
+	private void printBoard()
+	{
 		System.err.println("Board:");
 		int dim2_1 = board.length;
-		for (int i = 0; i != dim2_1; ++i) {
-			for (int j = 0; j != dim2_1; ++j) {
+		for (int i = 0 ; i != dim2_1 ; ++i) {
+			for (int j = 0 ; j != dim2_1 ; ++j) {
 				String x = (board[i][j] < 0 ? "X" : "" + board[i][j]);
 				System.err.print(x + " ");
 			}
@@ -460,7 +352,8 @@ public class Cell {
 		}
 	}
 
-	private Cell() throws Exception {
+	private Cell() throws Exception
+	{
 		// load players
 		players = loadPlayers(playerPath);
 		turn = trades = conflicts = 0;
@@ -472,37 +365,37 @@ public class Cell {
 		printBoard();
 		gen = new Random();
 		// generate sacks
-		sacks = new int[players.length][6];
-		for (int p = 0; p != players.length; ++p)
-			for (int r = 0; r != 6; ++r)
+		sacks = new int [players.length][6];
+		for (int p = 0 ; p != players.length ; ++p)
+			for (int r = 0 ; r != 6 ; ++r)
 				sacks[p][r] = marbles;
 		// place players on board
-		in = new boolean[players.length];
-		round = new int[players.length];
-		player_location = new int[players.length][];
-		for (int p = 0; p != players.length; ++p) {
+		in = new boolean [players.length];
+		round = new int [players.length];
+		player_location = new int [players.length][];
+		for (int p = 0 ; p != players.length ; ++p) {
 			int i = gen.nextInt(dim2_1);
 			int j = gen.nextInt(dim2_1);
 			if (board[i][j] == -1) {
 				p--;
 				continue;
 			}
-			int[] location = { i, j };
+			int[] location = {i, j};
 			player_location[p] = location;
 			in[p] = true;
 		}
 		// place traders on board
-		trader_location = new int[traders][];
-		trader_rates = new double[traders][6];
-		for (int t = 0; t != traders; ++t) {
+		trader_location = new int [traders][];
+		trader_rates = new double [traders][6];
+		for (int t = 0 ; t != traders ; ++t) {
 			int i = gen.nextInt(dim2_1);
 			int j = gen.nextInt(dim2_1);
-			int[] location = { i, j };
+			int[] location = {i, j};
 			boolean valid = board[i][j] >= 0;
-			for (int p = 0; valid && p != players.length; ++p)
+			for (int p = 0 ; valid && p != players.length ; ++p)
 				if (same_location(player_location[p], location))
 					valid = false;
-			for (int p = 0; valid && p != t; ++p)
+			for (int p = 0 ; valid && p != t ; ++p)
 				if (same_location(trader_location[p], location))
 					valid = false;
 			if (!valid) {
@@ -512,45 +405,49 @@ public class Cell {
 			trader_location[t] = location;
 			// generate trader rates
 			double[] rates = trader_rates[t];
-			for (int r = 0; r != 6; ++r)
+			for (int r = 0 ; r != 6 ; ++r)
 				rates[r] = gen.nextDouble() + 1.0;
 		}
 	}
 
-	private int[] copyI(int[] a) {
-		int[] b = new int[a.length];
-		for (int i = 0; i != a.length; ++i)
+	private int[] copyI(int[] a)
+	{
+		int[] b = new int [a.length];
+		for (int i = 0 ; i != a.length ; ++i)
 			b[i] = a[i];
 		return b;
 	}
 
-	private int[][] copyII(int[][] a) {
-		int[][] b = new int[a.length][];
-		for (int i = 0; i != a.length; ++i)
+	private int[][] copyII(int[][] a)
+	{
+		int[][] b = new int [a.length][];
+		for (int i = 0 ; i != a.length ; ++i)
 			b[i] = copyI(a[i]);
 		return b;
 	}
 
-	private double[] copyD(double[] a) {
-		double[] b = new double[a.length];
-		for (int i = 0; i != a.length; ++i)
+	private double[] copyD(double[] a)
+	{
+		double[] b = new double [a.length];
+		for (int i = 0 ; i != a.length ; ++i)
 			b[i] = a[i];
 		return b;
 	}
 
-	private boolean next() throws Exception {
+	private boolean next() throws Exception
+	{
 		turn++;
 		int dim2_1 = board.length;
 		// game turns
-		Player.Direction dirs[] = { Player.Direction.W, Player.Direction.E,
-				Player.Direction.NW, Player.Direction.N, Player.Direction.S,
-				Player.Direction.SE };
+		Player.Direction dirs[] =
+		{Player.Direction.W,  Player.Direction.E,
+		 Player.Direction.NW, Player.Direction.N,
+		 Player.Direction.S, Player.Direction.SE};
 		int[][] player_location_copy = copyII(player_location);
 		int[][] trader_location_copy = copyII(trader_location);
 		// move players
-		for (int p = 0; p != players.length; ++p) {
-			if (!in[p])
-				continue;
+		for (int p = 0 ; p != players.length ; ++p) {
+			if (!in[p]) continue;
 			// location
 			int[] location = player_location[p];
 			int[] sack = sacks[p];
@@ -572,9 +469,8 @@ public class Cell {
 				continue;
 			}
 			// move player
-			Player.Direction dir = players[p].move(copyII(board),
-					copyI(player_location[p]), copyI(sacks[p]),
-					copyII(player_location_copy), copyII(trader_location_copy));
+			Player.Direction dir = players[p].move(copyII(board), copyI(player_location[p]),
+			      copyI(sacks[p]), copyII(player_location_copy), copyII(trader_location_copy));
 			System.err.println("Player " + p + " moves " + dir);
 			int[] new_location = move(location, dir);
 			int color = color(new_location, board);
@@ -587,57 +483,55 @@ public class Cell {
 			player_location[p] = new_location;
 		}
 		// trade with leprechauns
-		for (int t = 0; t != traders; ++t) {
+		for (int t = 0 ; t != traders ; ++t) {
 			// count players in location
 			int[] location = trader_location[t];
 			int buyers = 0, buyer = -1;
-			for (int p = 0; p != players.length; ++p)
+			for (int p = 0 ; p != players.length ; ++p)
 				if (in[p] && same_location(player_location[p], location)) {
 					buyers++;
 					buyer = p;
 				}
 			// no buyer for trader
-			if (buyers == 0)
-				continue;
+			if (buyers == 0) continue;
 			// do the trade only if single buyer
-			if (buyers != 1)
-				conflicts++;
+			if (buyers != 1) conflicts++;
 			else {
 				trades++;
 				// ask for trade
 				double[] rates = trader_rates[t];
-				int[] request = new int[6];
+				int[] request = new int [6];
 				int[] give = new int[6];
 				int p = buyer;
 				int[] sack = sacks[p];
 				players[p].trade(copyD(rates), request, give);
 				System.err.println("Player " + p + " trades with trader " + t);
 				System.err.print("Rates: [" + rates[0]);
-				for (int r = 1; r != 6; ++r)
+				for (int r = 1 ; r != 6 ; ++r)
 					System.err.print("," + rates[r]);
 				System.err.println("]");
 				System.err.print("Request: [" + request[0]);
-				for (int r = 1; r != 6; ++r)
+				for (int r = 1 ; r != 6 ; ++r)
 					System.err.print("," + request[r]);
 				System.err.println("]");
 				System.err.print("Give: [" + give[0]);
-				for (int r = 1; r != 6; ++r)
+				for (int r = 1 ; r != 6 ; ++r)
 					System.err.print("," + give[r]);
 				System.err.println("]");
 				System.err.print("Sack: [" + sack[0]);
-				for (int r = 1; r != 6; ++r)
+				for (int r = 1 ; r != 6 ; ++r)
 					System.err.print("," + sack[r]);
 				System.err.println("]");
 				// check if player has enough in sack
 				boolean valid = true;
-				for (int r = 0; valid && r != 6; ++r)
+				for (int r = 0 ; valid && r != 6 ; ++r)
 					if (give[r] < 0 || request[r] < 0 || give[r] > sack[r])
 						valid = false;
 				if (valid) {
 					// compute total value of player trade
 					double request_value = 0.0;
 					double give_value = 0.0;
-					for (int r = 0; r != 6; ++r) {
+					for (int r = 0 ; r != 6 ; ++r) {
 						request_value += rates[r] * request[r];
 						give_value += rates[r] * give[r];
 					}
@@ -648,11 +542,11 @@ public class Cell {
 				}
 				if (valid) {
 					// update marbles in sack
-					for (int r = 0; r != 6; ++r)
+					for (int r = 0 ; r != 6 ; ++r)
 						sack[r] += request[r] - give[r];
 					// check if done
 					boolean finished = true;
-					for (int r = 0; finished && r != 6; ++r)
+					for (int r = 0 ; finished && r != 6 ; ++r)
 						if (sack[r] < marbles * 4)
 							finished = false;
 					if (finished) {
@@ -665,25 +559,24 @@ public class Cell {
 				}
 				System.err.println("Transaction is done!");
 				System.err.print("Sack: [" + sack[0]);
-				for (int r = 1; r != 6; ++r)
+				for (int r = 1 ; r != 6 ; ++r)
 					System.err.print("," + sack[r]);
 				System.err.println("]");
 				// trader changes his rates
-				for (int r = 0; r != 6; ++r)
+				for (int r = 0 ; r != 6 ; ++r)
 					rates[r] = gen.nextDouble() + 1.0;
 			}
 			// trader shows up in new location
 			for (;;) {
 				int i = gen.nextInt(dim2_1);
 				int j = gen.nextInt(dim2_1);
-				int[] new_location = { i, j };
+				int[] new_location = {i, j};
 				boolean valid = board[i][j] >= 0;
-				for (int p = 0; valid && p != traders; ++p)
+				for (int p = 0 ; valid && p != traders ; ++p)
 					if (same_location(trader_location[p], new_location))
 						valid = false;
-				for (int p = 0; p != players.length; ++p)
-					if (in[p]
-							&& same_location(player_location[p], new_location))
+				for (int p = 0 ; p != players.length ; ++p)
+					if (in[p] && same_location(player_location[p], new_location))
 						valid = false;
 				if (valid) {
 					trader_location[t] = new_location;
@@ -693,61 +586,58 @@ public class Cell {
 			}
 		}
 		int in_game = 0;
-		for (int p = 0; p != players.length; ++p)
-			if (in[p])
-				in_game++;
+		for (int p = 0 ; p != players.length ; ++p)
+			if (in[p]) in_game++;
 		return in_game == 0;
 	}
 
-	private int[] rank() {
+	private void rank()
+	{
 		// count marbles of remaining players
-		int[] count = new int[players.length];
-		for (int p = 0; p != players.length; ++p)
+		int[] count = new int [players.length];
+		for (int p = 0 ; p != players.length ; ++p)
 			if (round[p] == 0)
-				for (int r = 0; r != 6; ++r)
+				for (int r = 0 ; r != 6 ; ++r)
 					count[p] += sacks[p][r];
 		// get rank of players
 		int n = round.length;
-		int[] rank = new int[n];
-		for (int p = 0; p != n; ++p) {
+		int[] rank = new int [n];
+		for (int p = 0 ; p != n ; ++p) {
 			rank[p] = 1;
 			// finished the game
 			if (round[p] > 0) {
-				for (int i = 0; i != n; ++i)
+				for (int i = 0 ; i != n ; ++i)
 					if (round[i] > 0 && round[i] < round[p])
 						rank[p]++;
-				// lost the marbles
+			// lost the marbles
 			} else if (round[p] < 0) {
-				for (int i = 0; i != n; ++i)
+				for (int i = 0 ; i != n ; ++i)
 					if (round[i] >= 0 || round[i] < round[p])
 						rank[p]++;
-				// remaining in the game
+			// remaining in the game
 			} else
-				for (int i = 0; i != n; ++i)
+				for (int i = 0 ; i != n ; ++i)
 					if (round[i] > 0 || (round[i] == 0 && count[i] > count[p]))
 						rank[p]++;
 		}
 		// print ranking of players
 		System.err.println("Trades: " + trades);
 		System.err.println("Conflicts: " + conflicts);
-		for (int r = 1; r <= players.length; ++r)
-			for (int p = 0; p != players.length; ++p)
+		for (int r = 1 ; r <= players.length ; ++r)
+			for (int p = 0 ; p != players.length ; ++p)
 				if (rank[p] == r) {
 					System.err.print(r + ": " + players[p].name() + ": ");
 					if (round[p] > 0)
 						System.err.println("finished at round " + round[p]);
 					else if (round[p] < 0)
-						System.err
-								.println("lost marbles at round " + -round[p]);
+						System.err.println("lost marbles at round " + -round[p]);
 					else
-						System.err.println("remained in game with " + count[p]
-								+ " marbles");
+						System.err.println("remained in game with " + count[p] + " marbles");
 				}
-		return rank;
 	}
 
-	private static int[] move(int[] location, Player.Direction dir)
-			throws Exception {
+	private static int[] move(int[] location, Player.Direction dir) throws Exception
+	{
 		int di, dj;
 		int i = location[0];
 		int j = location[1];
@@ -770,14 +660,13 @@ public class Cell {
 			di = 1;
 			dj = 1;
 		} else
-			return null;
-		int[] new_location = { i + di, j + dj };
+			throw new Exception("Invalid movement");
+		int[] new_location = {i + di, j + dj};
 		return new_location;
 	}
 
-	private static int color(int[] location, int[][] board) {
-		if (location == null)
-			return -1;
+	private static int color(int[] location, int[][] board)
+	{
 		int i = location[0];
 		int j = location[1];
 		int dim2_1 = board.length;
@@ -786,7 +675,8 @@ public class Cell {
 		return board[i][j];
 	}
 
-	private static boolean same_location(int[] l1, int[] l2) {
+	private static boolean same_location(int[] l1, int[] l2)
+	{
 		return l1[0] == l2[0] && l1[1] == l2[1];
 	}
 }

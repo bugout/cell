@@ -2,8 +2,8 @@ package cell.g4;
 
 public class BoardAnalyzer {
 
-	public int[] getColorDistribution(int[][] board){
-		int[] color= new int[6];
+	public double[] getColorDistribution(int[][] board){
+		double[] color= new double[6];
 		for(int i=0; i < board.length ; i++){
 			for(int j=0; j < board[0].length; j++){
 				switch (board[i][j]) {
@@ -31,9 +31,13 @@ public class BoardAnalyzer {
 			}
 		}
 		
-		//DEBUG
+		int sum=0;
 		for(int i=0;i<color.length;i++){
-			System.out.println("color " + i + ":" + color[i]);
+			sum+=color[i];
+		}
+		
+		for(int i=0; i <color.length;i++){
+			color[i] /= sum;
 		}
 		return color;
 	}
@@ -42,6 +46,9 @@ public class BoardAnalyzer {
 		return null;
 	}
 	
+	public int dimensionOfMap(int[][] board){
+		return board.length;
+	}
 	//based on current location, the value of marble changes
 
 
