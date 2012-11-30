@@ -1,5 +1,7 @@
 package cell.g1;
 
+import java.util.Arrays;
+
 public class Node implements Comparable{
 	int color;
 	int x;
@@ -39,5 +41,15 @@ public class Node implements Comparable{
 			return 1;
 		else return -1;
 					
+	}
+	
+	public boolean equals(Node n){
+		if(this.x==n.x && this.y==n.y)
+			return true;
+		else return false;
+	}
+	
+	public String toString(){
+		return Arrays.toString(this.getLocation());
 	}
 }

@@ -34,6 +34,7 @@ public class Player implements cell.sim.Player, Logger {
 			int n = (3*l*l+1)/4;
 			int p = players.length;
 			int t = traders.length;
+			//thresHold= (int)(l/3*Math.sqrt(p/t));
 			thresHold = (int)(Math.sqrt(n*p/t)*1.414/2) + 1;
 			if(thresHold >= iniMarble)
 				thresHold = iniMarble - 2;
@@ -53,6 +54,7 @@ public class Player implements cell.sim.Player, Logger {
 		
 		int[] closest=graph.nearestTrader(location,traders);
 		nextSteps=graph.getNextStep(location, closest);
+		//log(graph.getPath(location, closest).toString());
 		Node chosen=null;
 		int max=0;
 		for (Node n: nextSteps)
@@ -114,7 +116,6 @@ public class Player implements cell.sim.Player, Logger {
 		log("threshold" + thresHold);
 		int highestIdx = -1;
 		int highest = 0;
-		double base =0.0;
 		for(int i = 0; i<6; i++){
 			if(savedSack[i]>highest){highest=savedSack[i]; highestIdx = i;}				
 		}
@@ -165,7 +166,7 @@ public class Player implements cell.sim.Player, Logger {
 			}
 		}
 		int count=0;
-		while(rv>gv )
+		while(rv>gv)
 		{
 			for(int i = 0; i<6; i++){
 				request[i] =0;
@@ -204,41 +205,21 @@ public class Player implements cell.sim.Player, Logger {
 			}*/
 			//System.out.print("infinite loops!!!!!!!!");
 		}
-		
+		if(rate[highestIdx]/rate[lowestColor] < 1.2 
+				&& 
+				savedSack[highestIdx]< (int)(iniMarble*24/1.25)){
+			for(int i = 0; i<6; i++){
+				request[i] =0;
+				give[i] = 0;
+				}
+			rv = 0;
+			gv = 0;
+		}
 		while (true) {
-			log("sec...");
 			if (rv + rate[lowestColor] >= gv) break;
 			request[lowestColor]++;
 			rv += rate[lowestColor];
 		}
-	}
-
-	private static int[] move(int[] location, Player.Direction dir)
-	{
-		int di, dj;
-		int i = location[0];
-		int j = location[1];
-		if (dir == Player.Direction.W) {
-			di = 0;
-			dj = -1;
-		} else if (dir == Player.Direction.E) {
-			di = 0;
-			dj = 1;
-		} else if (dir == Player.Direction.NW) {
-			di = -1;
-			dj = -1;
-		} else if (dir == Player.Direction.N) {
-			di = -1;
-			dj = 0;
-		} else if (dir == Player.Direction.S) {
-			di = 1;
-			dj = 0;
-		} else if (dir == Player.Direction.SE) {
-			di = 1;
-			dj = 1;
-		} else return null;
-		int[] new_location = {i + di, j + dj};
-		return new_location;
 	}
 
 	private static int color(int[] location, int[][] board)
@@ -251,14 +232,6 @@ public class Player implements cell.sim.Player, Logger {
 		return board[i][j];
 	}
 
-	private int[] copyI(int[] a)
-	{
-		int[] b = new int [a.length];
-		for (int i = 0 ; i != a.length ; ++i)
-			b[i] = a[i];
-		return b;
-	}
-	
 	private boolean canWin(double[] rt,  int[] sack){
 		int highestIdx = -1;
 		int highest = 0;
