@@ -34,7 +34,8 @@ public class Player implements cell.sim.Player {
 		if (board == null) {
 			board = new Board(map);
 //			sacks = new Sack(sack,board);
-			sacks = new DynamicSack(sack,board);
+			//sacks = new DynamicSack(sack,board);
+			sacks = new WeightedSack(sack,board);
 			
 			trading = new MergeTrade(board, sacks);
 			movement = new ShortestPathMove(board, sacks);

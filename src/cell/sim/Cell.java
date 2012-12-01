@@ -7,7 +7,7 @@ import javax.tools.*;
 public class Cell {
 
 	// configuration info that varies less
-	private static boolean gui = false;
+	private static boolean gui = true;
 	private static int turns = 100;
 	private static int traders = 2;
 	private static int marbles = 20;

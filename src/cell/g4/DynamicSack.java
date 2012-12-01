@@ -9,15 +9,10 @@ public class DynamicSack extends Sack {
 		dist = board.getColorDistribution();
 		dimension = board.dimension();
 		
-		updateReserve();
-	}
-
-	private void updateReserve(){
-		int[] reserve = new int[6];
-		for(int i=0; i < reserve.length; i++){
-			reserve[i]= (int) (dist[i] * getStock(i) * 3);
+		reserves = new int[6];
+		for(int i=0; i < reserves.length; i++){
+			reserves[i]= (int) (dist[i] * InitialMarble * 2);
 		}
-		super.reserves = reserve;
 	}
 }
 
