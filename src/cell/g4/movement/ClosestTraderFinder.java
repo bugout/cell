@@ -77,7 +77,7 @@ public class ClosestTraderFinder extends TraderFinder {
 
 		sort(ourdists, indices);
 		
-		for (int k = 0; k < topK; k++) {
+		for (int k = 0; k < Math.min(topK, traders.length); k++) {
 			int index = indices[k];
 			if (isClosest(dists[index]))
 				return index;
