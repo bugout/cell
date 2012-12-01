@@ -16,7 +16,7 @@ public class Board {
 	}
 	
 	public int dimension(){
-		return board.length;
+		return board.length / 2;
 	}
 	
 	public double[] getColorDistribution(){

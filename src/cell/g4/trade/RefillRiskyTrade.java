@@ -20,14 +20,14 @@ public class RefillRiskyTrade extends TradeAlgo {
 			request[i] = give[i] = 0;
 		
 		for (int i=0; i != 6; ++i){
-//			if(i == invaluable)
-//				continue;
-//			else {
+			if(i == invaluable)
+				continue;
+			else {
 				int amount = maxAmountToGive(i);
 				give[i] = amount;
 				totalValue += (amount * rate[i]);
 				//request[invaluable] = request[invaluable] + (int)(amount * rate[i] / rate[invaluable]);
-//			}
+			}
 		}
 		
 		
