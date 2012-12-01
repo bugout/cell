@@ -19,7 +19,7 @@ import cell.g4.movement.TraderFinder;
 
 public class ClosestTraderFinder extends TraderFinder {
 	private final static int topK = 3;
-	private final static boolean yielding = true;
+	private final static boolean yielding = false;
 
 	public ClosestTraderFinder(Board board) {
 		super(board);
