@@ -172,10 +172,12 @@ public class Board {
 				} else {
 					logger.log("Another team: " + Arrays.toString(playerLoc));
 				}
-
-				int dist = shortestDistance(playerLoc, traderLoc);
-				logger.log("Their distance: " + dist);
-				minimumDistance = Math.min(minimumDistance, dist);
+				
+				if (playerLoc != null) {
+					int dist = shortestDistance(playerLoc, traderLoc);
+					logger.log("Their distance: " + dist);
+					minimumDistance = Math.min(minimumDistance, dist);
+				}
 			}
 			
 			logger.log("We're at: " + Arrays.toString(source));

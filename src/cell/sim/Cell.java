@@ -211,7 +211,8 @@ public class Cell {
 			server.replyState(game.state(), 0);
 			while ((req = server.nextRequest(2000)) == 'I');
 		}
-		server.close();
+		if (server != null)
+			server.close();
 	}
 
 	private Player[] players;
@@ -532,6 +533,7 @@ public class Cell {
 				                      copyI(sacks[p]), copyII(player_location_copy),
 				                      copyII(trader_location_copy));
 			} catch (Exception e) {
+				e.printStackTrace();
 				System.err.println("Player " + (p + 1) + " threw an exception during move: " + e.getMessage());
 			}
 			if (dir == null) {
