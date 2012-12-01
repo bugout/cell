@@ -35,7 +35,7 @@ public class Player implements cell.sim.Player {
 			board = new Board(map);
 //			sacks = new Sack(sack,board);
 			//sacks = new DynamicSack(sack,board);
-			sacks = new WeightedSack(sack,board);
+			sacks = new DynamicWeightedSack(sack,board);
 			
 			trading = new MergeTrade(board, sacks);
 			movement = new ShortestPathMove(board, sacks);
@@ -44,7 +44,7 @@ public class Player implements cell.sim.Player {
 		}
 		// routines
 		loc[0] = location[0]; loc[1] = location[1];		
-		sacks.update(sack);
+		sacks.update(sack, loc);
 		game.updateTrades(players, traders);
 		
 		Direction dir = movement.move(location, players, traders);

@@ -1,10 +1,7 @@
 package cell.g4;
 
-import java.util.Arrays;
-
 public class WeightedSack extends Sack {
 	private int[] center = new int[2];
-	private int[] dreserves;
 	
 	public WeightedSack(int[] sack, Board board) {
 		super(sack, board);
@@ -15,7 +12,7 @@ public class WeightedSack extends Sack {
 		}
 	}
 
-	private double weight(int[] center, int i, int j) {
+	protected double weight(int[] center, int i, int j) {
 		int longest = board.mindist(center, new int[]{0,0});
 		
 		int dist = board.mindist(center, new int[]{i,j});
@@ -23,7 +20,7 @@ public class WeightedSack extends Sack {
 		return longest - dist; 
 	}
 	
-	public int[] calcWeightedReserve(int[] center) {
+	protected int[] calcWeightedReserve(int[] center) {
 		int[] reserves = new int[6];		
 		double[] dist= new double[6];
 		
@@ -63,7 +60,7 @@ public class WeightedSack extends Sack {
 		return reserves;
 	}
 	
-	private double[] normalize(double[] reserves) {
+	protected double[] normalize(double[] reserves) {
 		double sum = 0;
 		for (int i = 0; i < reserves.length; i++)
 			sum += reserves[i];
