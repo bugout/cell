@@ -22,12 +22,11 @@ public class RiskyTrade extends TradeAlgo {
 			if(i == invaluable)
 				continue;
 			else {
-				int amount = maxAmount(i, invaluable);
+				int amount = maxAmount(i);
 				give[i] = amount;
 				request[invaluable] = request[invaluable] + (int)(amount * rate[i] / rate[invaluable]);
 			}
-		}
-		
+		}	
 	}	
 	
 	private int invaluableColor(double[] rate) {
@@ -42,8 +41,7 @@ public class RiskyTrade extends TradeAlgo {
 		return color;
 	}
 	
-	private int maxAmount(int valuable, int invaluable) {
+	private int maxAmount(int valuable) {
 		return Math.max(0, sack.getStock(valuable) - sack.getReserve(valuable));
-		//TODO: need to consider the future...
 	}
 }

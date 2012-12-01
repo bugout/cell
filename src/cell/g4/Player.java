@@ -9,8 +9,8 @@ import cell.g4.trade.MergeTrade;
 import cell.g4.trade.TradeAlgo;
 
 public class Player implements cell.sim.Player {
-	private static int versions = 0;
-	public static int version = ++versions;
+	public static int versions = 0;
+	private int version = ++versions;
 	private Random rnd = new Random();
 	
 	// the map
