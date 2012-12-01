@@ -69,11 +69,11 @@ public class Player implements cell.sim.Player {
 			int color = board.getColor(new_location);
 			if (color >= 0 && sacks.getStock(color) > 0) {
 				possible_moves++;
+				if (nextdir == dir)
+					return nextdir;
+				else
+					possible.add(dir);
 			}
-			if (nextdir == dir)
-				return nextdir;
-			else
-				possible.add(dir);
 		}
 		if (possible_moves == 0) {
 			System.out.println("We are dead");
