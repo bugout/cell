@@ -28,19 +28,7 @@ public class RiskyTrade extends TradeAlgo {
 			}
 		}
 		
-	}
-	
-	private int valuableColor(double[] rate) {
-		double maxrate = 0;
-		int color = -1;
-		for (int i = 0; i < rate.length; i++) {
-			if (rate[i] > maxrate) {
-				maxrate = rate[i];
-				color = i;
-			}
-		}
-		return color;
-	}
+	}	
 	
 	private int invaluableColor(double[] rate) {
 		double minrate = Double.MAX_VALUE;
