@@ -26,7 +26,7 @@ public class SafeTrade extends TradeAlgo {
 	}
 	
 	public boolean isSafe(int[] savedLocation, int[][] savedPlayers, int[][] savedTraders) {
-		List<Integer> ourTraders = finder.findOurTrader(savedLocation, savedPlayers, savedTraders);
+		List<Integer> ourTraders = finder.findOurTrader(savedLocation, savedPlayers, savedTraders, true);
 		if (ourTraders.size() > 1) 
 			return true;
 		else
@@ -39,7 +39,7 @@ public class SafeTrade extends TradeAlgo {
 		
 		// USEFUL when there is only 1 playerZ		
 		// ourTrader may be less than 1, because we add the +1 constraint
-		List<Integer> ourTraders = finder.findOurTrader(savedLocation, savedPlayers, savedTraders);
+		List<Integer> ourTraders = finder.findOurTrader(savedLocation, savedPlayers, savedTraders, true);
 		
 		assert(ourTraders.size() > 1);
 		

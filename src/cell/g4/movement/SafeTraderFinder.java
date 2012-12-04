@@ -5,18 +5,16 @@ import java.util.List;
 
 import cell.g4.Board;
 
-public class SafeTraderFinder extends TraderFinder {
-
+public class SafeTraderFinder {
+	private Board board;
+	private int playerIndex;
 	private final static int topK = 4;
 	
 	public SafeTraderFinder(Board board, int playerIndex) {
-		super(board, playerIndex);
+		this.board = board;
+		this.playerIndex = playerIndex;
 	}
 
-	@Override
-	public int findBestTrader(int[] location, int[][] teams, int[][] traders) {
-		return 0;
-	}
 	
 	private void sort(int[] dists, int[] indices) {
 		for (int i = 1; i < dists.length; i++) {
@@ -33,7 +31,7 @@ public class SafeTraderFinder extends TraderFinder {
 	}
 	
 	// find the trader that is occupied by us
-	public List<Integer> findOurTrader(int[] location, int[][] teams, int[][] traders) {
+	public List<Integer> findOurTrader(int[] location, int[][] teams, int[][] traders, boolean inTrading) {
 		List<Integer> ourTraders = new ArrayList<Integer>();
 		
 		int[][] dists = new int[traders.length][teams.length];
@@ -55,7 +53,7 @@ public class SafeTraderFinder extends TraderFinder {
 		
 		// increasing order of distance
 		for (int i = 0; i < Math.min(topK, traders.length); i++) {
-			if (isOurTrader(traders[indices[i]], dists[indices[i]], ourdists[i])) {
+			if (isOurTrader(traders[indices[i]], dists[indices[i]], ourdists[i], inTrading)) {
 				ourTraders.add(indices[i]);				
 			}
 		}
@@ -63,11 +61,16 @@ public class SafeTraderFinder extends TraderFinder {
 	}
 
 	// a trader is ours, if we are closer to it than any other team
-	private boolean isOurTrader(int[] trader, int[] dists, int ourdist) {
+	// NOTE: it is called during trade, however, in trade, we only know the location in the last round
+	// which means we have to predict one step ahead
+	private boolean isOurTrader(int[] trader, int[] dists, int ourdist, boolean inTrading) {
+		int relax = inTrading ? 1 : 0; 
+				
 		for (int i = 0; i < dists.length; i++) {
 			if (playerIndex == i)
 				continue;
-			if (dists[i] <= ourdist + 1) // because we don't other group's move in this round, release constraint
+						
+			if (dists[i] <= ourdist + relax) // because we don't other group's move in this round, release constraint
 				return false;			
 		}
 		

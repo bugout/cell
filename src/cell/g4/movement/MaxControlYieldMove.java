@@ -13,7 +13,6 @@ public class MaxControlYieldMove extends YieldMove {
 
 	@Override
 	public Direction move(int[] location, int[][] players, int[][] traders) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
