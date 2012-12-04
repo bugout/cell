@@ -1,10 +1,6 @@
 package cell.g4.movement;
 
-import java.util.Random;
-
 import cell.g4.Board;
-import cell.g4.Game;
-import cell.g4.Player;
 import cell.g4.movement.TraderFinder;
 
 

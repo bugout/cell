@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import cell.g4.movement.MoveAlgo;
+import cell.g4.movement.NextTrader;
 import cell.g4.movement.ShortestPathMove;
+import cell.g4.movement.TraderFinder;
+import cell.g4.movement.TraderLocator;
 import cell.g4.movement.TraderQueue;
+import cell.g4.movement.YieldMove;
 import cell.g4.trade.TradeAlgo;
 import cell.g4.trade.TradingDispatcher;
 
@@ -14,6 +18,8 @@ import cell.g4.trade.TradingDispatcher;
 // use static variable to record the initial locations of our players
 // In the next round, find the indices of all of them
 public class Player implements cell.sim.Player {
+	private final static boolean test = true;
+	
 	public static int versions = 0;
 	private int version = ++versions;
 	private Random rnd = new Random();
@@ -26,13 +32,13 @@ public class Player implements cell.sim.Player {
 	private int playerIndex;
 	private int[][] savedTraders;
 	private int[][] savedPlayers;
-	// NOTE: EQUAL TO THE LOCATION AFTER TRADING
-	private int[] savedLocation;
+	private int[] savedLocation; 	// NOTE: EQUAL TO THE LOCATION AFTER TRADING
 
 	// movement algorithm
 	private MoveAlgo movement;
 	
 	private TradingDispatcher tradeDispatcher;
+	private TraderLocator traderLocator;
 	
 	private TraderQueue queue;
 	
@@ -66,13 +72,63 @@ public class Player implements cell.sim.Player {
 			movement = new ShortestPathMove(board, sacks, playerIndex);
 		
 			game = Game.initGame(location, players);
+			
+			queue = new TraderQueue();
 		}
 		// routines
 		savedTraders = traders;
-		savedPlayers = players;
-		
+		savedPlayers = players;		
 		sacks.update(sack, location);
 		game.updateTrades(players, traders);
+		
+		/*
+		 * A new framework for movement
+		 * 1. Update the TraderQueue 1) add trader 2) remove trader 3) reorder trader
+		 * 2. If the Queue is empty, use a waiting strategy, e.g. move to center / open area
+		 * 3. If the queue is not empty but the first trader has a conflict, use a yielding strategy, 
+		 * 		e.g. never yield, or go to the next in the queue
+		 * 4. If the queue is not empty, and there is no conflict with the first trader
+		 * 		select a path to that trader
+		 * 
+		 * Information kept in a TraderQueue
+		 * trader id, max steps allowed to reach that trader, possible paths to that trader
+		 */
+
+		/* 
+		 * Pseudo-code
+		 * updateQueue(traderQueue);
+		 * if (traderQueue.isEmpty())
+		 * 		WaitingMove();
+		 * else if (hasConflict(traderQueue.first()))
+		 * 		YieldMove();
+		 * else
+		 * 		Path = pickPath(trader.Queue.first()))
+		 * 
+		 * if we arrive at a trader
+		 * 		remove the trader from our queue
+		 */
+
+		if (test) {
+			
+			traderLocator.update(queue, location, players, traders);
+			
+			if (queue.isEmpty()) {
+				// waiting move
+			}
+			else {
+				NextTrader nt = queue.first();
+				if (nt.isConflict()) {
+					// yielding move
+				}
+				else {
+					// pick a path, normal move
+				}
+			}
+			
+			return null;
+		}
+		else {
+		
 		
 		Direction dir = null;
 		if (savedPath == null) {		
@@ -92,6 +148,7 @@ public class Player implements cell.sim.Player {
 		savedLocation = new_location;
 	
 		return dir;
+		}
 	}
 
 	// TODO
