@@ -12,14 +12,14 @@ public abstract class TradeAlgo {
 	protected Board board = null;
 	protected Player player = null;
 	
-	protected static int safeTradeCount = 0;
-	protected static int totalTradeCount = 0;
-	
 	public TradeAlgo(Board board, Sack sack, Player player) {
 		this.board = board;
 		this.sack = sack;
 		this.player = player;
 	}
+
+	public abstract boolean toUse(double[] rate, int[] request, int[] give, 
+			int[] savedLocation, int[][] savedPlayers, int[][] savedTraders);
 	
 	public abstract void trade(double[] rate, int[] request, int[] give, 
 			int[] savedLocation, int[][] savedPlayers, int[][] savedTraders);

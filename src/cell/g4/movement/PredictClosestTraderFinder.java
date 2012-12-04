@@ -18,7 +18,7 @@ public class PredictClosestTraderFinder extends ClosestTraderFinder {
 	// TODO: revise isClosest
 	@Override
 	protected boolean isClosest(int[] dists) {
-		int ourdist = dists[Game.getGame().getOurIndex()];
+		int ourdist = dists[playerIndex];
 		for (int i = 0; i < dists.length; i++) {
 			if (dists[i] < ourdist)
 				return false;

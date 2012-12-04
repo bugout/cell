@@ -1,17 +1,16 @@
 package cell.g4;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import cell.g4.movement.MoveAlgo;
 import cell.g4.movement.ShortestPathMove;
-import cell.g4.movement.SafeTraderFinder;
-import cell.g4.trade.MergeTrade;
-import cell.g4.trade.SafeTrade;
+import cell.g4.movement.TraderQueue;
 import cell.g4.trade.TradeAlgo;
+import cell.g4.trade.TradingDispatcher;
 
 
+// TODO: find all of our players
 // use static variable to record the initial locations of our players
 // In the next round, find the indices of all of them
 public class Player implements cell.sim.Player {
@@ -32,9 +31,10 @@ public class Player implements cell.sim.Player {
 
 	// movement algorithm
 	private MoveAlgo movement;
-	// trading algorithm
-	private TradeAlgo trading;
 	
+	private TradingDispatcher tradeDispatcher;
+	
+	private TraderQueue queue;
 	
 	private Path savedPath = null;
 	
@@ -59,7 +59,10 @@ public class Player implements cell.sim.Player {
 			board = new Board(map);
 			sacks = new DynamicWeightedSack(sack,board);
 			playerIndex = findPlayerIndex(location, players);
-			trading = new MergeTrade(board, sacks, this);
+			
+			tradeDispatcher = new TradingDispatcher(board, sacks, this);
+			
+			//trading = new MergeTrade(board, sacks, this);
 			movement = new ShortestPathMove(board, sacks, playerIndex);
 		
 			game = Game.initGame(location, players);
@@ -126,6 +129,9 @@ public class Player implements cell.sim.Player {
 	
 	@Override
 	public void trade(double[] rate, int[] request, int[] give) {
+		TradeAlgo trading = 
+				tradeDispatcher.pickTradingAlgo(rate, request, give, savedLocation, savedPlayers, savedTraders);
+		
 		trading.trade(rate, request, give, savedLocation, savedPlayers, savedTraders);
 	}
 	

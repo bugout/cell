@@ -23,15 +23,7 @@ public class SafeTrade extends TradeAlgo {
 	public SafeTrade(Board board, Sack sack, Player player) {
 		super(board, sack, player);
 		finder = new SafeTraderFinder(board, player.getOurIndex());
-	}
-	
-	public boolean isSafe(int[] savedLocation, int[][] savedPlayers, int[][] savedTraders) {
-		List<Integer> ourTraders = finder.findOurTrader(savedLocation, savedPlayers, savedTraders, true);
-		if (ourTraders.size() > 1) 
-			return true;
-		else
-			return false;
-	}
+	}	
 	
 	@Override
 	public void trade(double[] rate, int[] request, int[] give, 
@@ -44,21 +36,14 @@ public class SafeTrade extends TradeAlgo {
 		assert(ourTraders.size() > 1);
 		
 		if (ourTraders.size() > 1) {
-			safeTradeCount++;	
 			
 			int nextTrader = ourTraders.get(1);
-			
-			System.err.println("Doing risky trade!!! ");
-			System.err.println(savedTraders[nextTrader][0] + "," + savedTraders[nextTrader][1]);
 			
 			int[] reserves = board.getCostOfFirstPath(savedLocation, savedTraders[nextTrader]);
 			
 			Path savedPath = board.getFirstPath(savedLocation, savedTraders[nextTrader]);
 			player.setSavedPath(savedPath);
 			
-			for (int i = 0; i < 6; i++)
-				System.err.print(reserves[i] + "\t");
-			System.err.println();
 			sack.setReserves(reserves);
 		}
 		
@@ -101,5 +86,15 @@ public class SafeTrade extends TradeAlgo {
 	
 	private int maxAmountToGive(int color) {
 		return Math.max(0, sack.getStock(color) - sack.getReserve(color));
+	}
+
+	@Override
+	public boolean toUse(double[] rate, int[] request, int[] give,
+			int[] savedLocation, int[][] savedPlayers, int[][] savedTraders) {
+		List<Integer> ourTraders = finder.findOurTrader(savedLocation, savedPlayers, savedTraders, true);
+		if (ourTraders.size() > 1) 
+			return true;
+		else
+			return false;
 	}
 }

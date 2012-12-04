@@ -1,12 +1,10 @@
 package cell.g4;
 
 
-// A class to access global information
-// be careful when there are multiple instances of us
+// DONOT use static class
+// When there are multiple instances, their might be some problem
 public class Game {
 	private static Game thegame;
-	
-	private int ourIndex = -1;
 	
 	private Team[] teams;
 	private int[][] tradersLast = null;
@@ -20,21 +18,8 @@ public class Game {
 		teams = new Team[players.length];
 		for (int i = 0; i < teams.length; i++)
 			teams[i] = new Team(); 
-		ourIndex = findPlayerIndex(location, players);
 	}
-	
-	
-	private int findPlayerIndex(int[] location, int[][] players) {
-		int index = -1;
-		for (int i = 0; i < players.length; i++) {
-			if (location[0] == players[i][0] && location[1] == players[i][1]) {
-				index = i;
-				break;
-			}
-		}
-		assert(index >= 0);
-		return index;
-	}
+		
 	
 	public static Game initGame(int[] location, int[][] players) {
 		thegame = new Game(location, players);
@@ -66,9 +51,5 @@ public class Game {
 	
 	public Team[] getTeams() {
 		return teams;
-	}
-	
-	public int getOurIndex() {
-		return ourIndex;
 	}
 }

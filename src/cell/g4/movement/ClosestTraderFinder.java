@@ -29,12 +29,12 @@ public class ClosestTraderFinder extends TraderFinder {
 	}
 		
 	protected boolean isClosest(int[] dists) {
-		int ourdist = dists[Game.getGame().getOurIndex()];
+		int ourdist = dists[playerIndex];
 		for (int i = 0; i < dists.length; i++) {
 			if (dists[i] < ourdist)
 				return false;
 			
-			if (i != Game.getGame().getOurIndex() && dists[i]==ourdist) {
+			if (i != playerIndex && dists[i]==ourdist) {
 				if (yielding) {
 					System.out.println("We are yielding");
 					return false;

@@ -29,7 +29,10 @@ public class WinningTrade extends TradeAlgo {
 		}
 	}
 	
-	public boolean canWin(double rate[]) {
+
+	@Override
+	public boolean toUse(double[] rate, int[] request, int[] give,
+			int[] savedLocation, int[][] savedPlayers, int[][] savedTraders) {
 		int giveValue = 0;
 		int requestValue = 0;
 		for (int i = 0; i < 6; i++) {

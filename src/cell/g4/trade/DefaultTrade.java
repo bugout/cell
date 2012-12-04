@@ -4,9 +4,12 @@ import cell.g4.Board;
 import cell.g4.Player;
 import cell.g4.Sack;
 
-public class RefillRiskyTrade extends TradeAlgo {
+/*
+ *  Trading as much as we can within a threshold 
+ */
+public class DefaultTrade extends TradeAlgo {
 	
-	public RefillRiskyTrade(Board board, Sack sack, Player player) {
+	public DefaultTrade(Board board, Sack sack, Player player) {
 		super(board, sack, player);
 	}
 
@@ -54,5 +57,11 @@ public class RefillRiskyTrade extends TradeAlgo {
 	
 	private int maxAmountToGive(int color) {
 		return Math.max(0, sack.getStock(color) - sack.getReserve(color));
+	}
+
+	@Override
+	public boolean toUse(double[] rate, int[] request, int[] give,
+			int[] savedLocation, int[][] savedPlayers, int[][] savedTraders) {
+		return true;
 	}
 }
