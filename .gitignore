@@ -2,6 +2,7 @@
 players.list
 players.list*
 
+bin/
 webpages/
 # Package Files #
 *.jar
