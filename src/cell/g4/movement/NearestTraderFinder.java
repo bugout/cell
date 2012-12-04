@@ -5,8 +5,8 @@ import cell.g4.movement.TraderFinder;
 
 public class NearestTraderFinder extends TraderFinder {
 
-	public NearestTraderFinder(Board board) {
-		super(board);
+	public NearestTraderFinder(Board board, int playerIndex) {
+		super(board, playerIndex);
 	}
 
 	@Override

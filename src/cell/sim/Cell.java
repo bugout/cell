@@ -581,6 +581,7 @@ public class Cell {
 				try {
 					players[p].trade(copyD(rates), request, give);
 				} catch (Exception e) {
+					e.printStackTrace();
 					System.err.println("Player " + (p + 1) + " threw an exception during trade: " + e.getMessage());
 					player_location[p] = null;
 					round[p] = -1;

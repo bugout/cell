@@ -30,8 +30,6 @@ public class DynamicWeightedSack extends WeightedSack {
 		super.update(sack, loc);
 		longest = getLongestDist(loc);
 		reserves = calcWeightedReserve(loc);
-		for (int i = 0; i < 6; i++)
-			System.out.println(reserves[i]);
 	}
 			
 	@Override

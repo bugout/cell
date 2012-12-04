@@ -12,6 +12,10 @@ public class Graph implements Logger{
 	public void log(String m){
 		System.err.println(m);
 	}
+	
+	public Node[][] getMapnodes(){
+		return mapNodes;
+	}
 	public Graph(int[][] map){
 		this.map=map;
 		mapNodes=new Node[map[0].length][map.length];
@@ -91,7 +95,7 @@ public class Graph implements Logger{
 		}
 		else if((x1-x2)==(y1-y2)){
 			return Math.abs(y1-y2);
-			}
+		}
 		else{
 			return 1;
 		}
@@ -114,9 +118,9 @@ public class Graph implements Logger{
 			return;
 		}
 		for(Node b:getNextStep(curr,dest)){
-			log(getNextStep(curr,dest).toString());
-			if(!b.equals(mapNodes[curr[0]][curr[1]]));
-			buildPaths(b.getLocation(),dest,paths,p);
+			//log(getNextStep(curr,dest).toString());
+			if(!b.equals(mapNodes[curr[0]][curr[1]]))
+				buildPaths(b.getLocation(),dest,paths,p);
 		}
 		p.remove(mapNodes[curr[0]][curr[1]]);
 	}
@@ -172,12 +176,20 @@ public class Graph implements Logger{
 			}
 			//not on diagonal
 			if(y1<y2 && x1<x2){
-				if(y1<mapNodes.length-1){
-					if(mapNodes[y1][x1+1].color!=-1)
-					nodes.add(mapNodes[y1][x1+1]);
-					if(x1<mapNodes[0].length-1)
-						if(mapNodes[y1+1][x1+1].color!=-1)
+				if(x2-x1==1){
+					if(mapNodes[y1+1][x1].color!=-1)
+						nodes.add(mapNodes[y1+1][x1]);
+					if(mapNodes[y1+1][x1+1].color!=-1)
 						nodes.add(mapNodes[y1+1][x1+1]);
+				}
+				else{
+					if(y1<mapNodes.length-1){
+						if(mapNodes[y1][x1+1].color!=-1)
+							nodes.add(mapNodes[y1][x1+1]);
+						if(x1<mapNodes[0].length-1)
+							if(mapNodes[y1+1][x1+1].color!=-1)
+								nodes.add(mapNodes[y1+1][x1+1]);
+					}
 				}
 				//checkValid(nodes);
 				return nodes;
@@ -185,21 +197,30 @@ public class Graph implements Logger{
 			if(y1<y2 && x1>x2){
 				if(x1>0){
 					if(mapNodes[y1][x1-1].color!=-1)
-					nodes.add(mapNodes[y1][x1-1]);
+						nodes.add(mapNodes[y1][x1-1]);
 				}
-				if(y1>0)
-					if(mapNodes[y1-1][x1].color!=-1)
-					nodes.add(mapNodes[y1-1][x1]);
+				if(mapNodes[y1+1][x1].color!=-1)
+					if(mapNodes[y1+1][x1].color!=-1)
+						nodes.add(mapNodes[y1+1][x1]);
 				//checkValid(nodes);
 				return nodes;
 			}
 			if(y1>y2 && x1>x2){
-				if(x1>0){
-					if(mapNodes[y1][x1-1].color!=-1)
-					nodes.add(mapNodes[y1][x1-1]);
-					if(y1>0)
+				if(x1-x2==1){
+					if(mapNodes[y1-1][x1].color!=-1){
+						nodes.add(mapNodes[y1-1][x1]);
 						if(mapNodes[y1-1][x1-1].color!=-1)
-						nodes.add(mapNodes[y1-1][x1-1]);
+							nodes.add(mapNodes[y1-1][x1-1]);
+					}
+				}
+				else{
+					if(x1>0){
+						if(mapNodes[y1][x1-1].color!=-1)
+							nodes.add(mapNodes[y1][x1-1]);
+						if(y1>0)
+							if(mapNodes[y1-1][x1-1].color!=-1)
+								nodes.add(mapNodes[y1-1][x1-1]);
+					}
 				}
 				//checkValid(nodes);
 				return nodes;
@@ -207,11 +228,11 @@ public class Graph implements Logger{
 			if(y1>y2 && x1<x2){
 				if(x1<mapNodes[0].length-1){
 					if(mapNodes[y1][x1+1].color!=-1)
-					nodes.add(mapNodes[y1][x1+1]);
+						nodes.add(mapNodes[y1][x1+1]);
 				}
 				if(y1<mapNodes.length-1)
-					if(mapNodes[y1+1][x1].color!=-1)
-					nodes.add(mapNodes[y1+1][x1]);
+					if(mapNodes[y1-1][x1].color!=-1)
+						nodes.add(mapNodes[y1-1][x1]);
 				//checkValid(nodes);
 				return nodes;
 			}

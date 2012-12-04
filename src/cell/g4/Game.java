@@ -2,8 +2,10 @@ package cell.g4;
 
 
 // A class to access global information
+// be careful when there are multiple instances of us
 public class Game {
 	private static Game thegame;
+	
 	private int ourIndex = -1;
 	
 	private Team[] teams;

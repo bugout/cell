@@ -1,24 +1,22 @@
 package cell.g1;
 
-import java.util.Arrays;
-
 public class Node implements Comparable{
 	int color;
 	int x;
 	int y;
 	Node pi;
 	
-	public Node(int x, int y, int color){
+	public Node(int y, int x, int color){
 		this.x=x;
 		this.y=y;
 		this.color=color;
 	}
 	
-	public void setPi(Node n){
+	public void setNode(Node n){
 		this.pi=n;
 	}
 	
-	public Node getPi(){
+	public Node getNode(){
 		return pi;
 	}
 	
@@ -43,13 +41,7 @@ public class Node implements Comparable{
 					
 	}
 	
-	public boolean equals(Node n){
-		if(this.x==n.x && this.y==n.y)
-			return true;
-		else return false;
-	}
-	
 	public String toString(){
-		return Arrays.toString(this.getLocation());
+		return "[["+y+", "+x+"]]";
 	}
 }

@@ -1,5 +1,7 @@
 package cell.g4.movement;
 
+import java.util.Random;
+
 import cell.g4.Board;
 import cell.g4.Game;
 import cell.g4.Player;
@@ -19,13 +21,14 @@ import cell.g4.movement.TraderFinder;
 
 public class ClosestTraderFinder extends TraderFinder {
 	private final static int topK = 3;
+	
 	private final static boolean yielding = false;
 
-	public ClosestTraderFinder(Board board) {
-		super(board);
+	public ClosestTraderFinder(Board board, int playerIndex) {
+		super(board, playerIndex);
 	}
 		
-	private boolean isClosest(int[] dists) {
+	protected boolean isClosest(int[] dists) {
 		int ourdist = dists[Game.getGame().getOurIndex()];
 		for (int i = 0; i < dists.length; i++) {
 			if (dists[i] < ourdist)
@@ -43,7 +46,7 @@ public class ClosestTraderFinder extends TraderFinder {
 		return true;
 	}
 	
-	private void sort(int[] dists, int[] indices) {
+	protected void sort(int[] dists, int[] indices) {
 		for (int i = 1; i < dists.length; i++) {
 			int value = dists[i];
 			int j = i - 1;
@@ -66,17 +69,20 @@ public class ClosestTraderFinder extends TraderFinder {
 		for (int i = 0; i < traders.length; i++) {
 			indices[i] = i;
 			for (int j = 0; j < teams.length; j++) {
+				// skip out team
 				if (teams[j] == null)
-					continue;
-				dists[i][j] = board.mindist(traders[i], teams[j]);
-				if (j == Game.getGame().getOurIndex()) {
-					ourdists[i] = dists[i][j];
-				}
+					dists[i][j] = Integer.MAX_VALUE;
+				else
+					dists[i][j] = board.mindist(traders[i], teams[j]);
 			}
+			ourdists[i] = board.mindist(traders[i], location);
 		}
-
+		
 		sort(ourdists, indices);
 		
+		// TODO:
+		// Based on the number of traders and size of map, use different strategies
+		// e.g. There is only one trader, go for it!
 		for (int k = 0; k < Math.min(topK, traders.length); k++) {
 			int index = indices[k];
 			if (isClosest(dists[index]))

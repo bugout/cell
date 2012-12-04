@@ -7,9 +7,6 @@ public class WeightedSack extends Sack {
 		super(sack, board);
 		center[0] = center[1] = board.getBoard().length / 2;
 		super.reserves = calcWeightedReserve(center);
-		for (int i = 0; i < 6; i++) {
-			System.out.println("reserve " + i + ": " + reserves[i]);
-		}
 	}
 
 	protected double weight(int[] center, int i, int j) {

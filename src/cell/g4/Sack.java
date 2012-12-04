@@ -24,6 +24,10 @@ public class Sack {
 			reserves[i] = MinReserve;
 	}
 	
+	public void setReserves(int[] reserves) {
+		this.reserves = reserves;
+	}
+	
 	public void update(int[] sack, int[] loc) {
 		this.sacks = Arrays.copyOf(sack, sack.length);
 	}

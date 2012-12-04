@@ -1,9 +1,7 @@
-package cell.g3;
+package cell.g3_smarter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -12,24 +10,28 @@ import cell.sim.Player.Direction;
 
 public 	class Mover
 {
+	public static boolean MOVER_DEBUG = false;
 	int[][] board;
 	int[] location;
 	int[][] traders;
 	int[] targetLocation;
 	int[] sack;
+	Player player;
 	Direction nextStep;
 
-	Mover(int[] location, int[][] board, int[][] traders, int[] savedSack)
+	Mover(Player player)
 	{
-		this.board = board;
-		this.sack = savedSack;
-		this.location = location;
-		this.traders = traders;
+		this.player = player;
+		this.board = player.copyII(player.board);
+		this.sack = player.copyI(player.savedSack);
+		this.location = player.copyI(player.currentLocation);
+		this.traders = player.copyII(player.traders);
 		targetLocation = closestTrader();
 		nextStep = nextStep();
 	}
 
 	public Direction getNextStep() {
+		mLogln("nextstep");
 		return nextStepWrapper(nextStep);
 	}
 
@@ -61,7 +63,9 @@ public 	class Mover
 	//TODO: Rank the leprechauns based on proximity to other leps or other players around it and color needed.  dont just pick arbitrarily  
 	private int[] closestTrader()
 	{
-		int[] targetLocation;
+		mLogln("closest trader");
+		
+		int[] targetLocation;		
 		Set<Integer[]> visitedLocations = new HashSet<Integer[]>();
 		visitedLocations.add(MapAnalyzer.wrapIntToIntegerArray(location));
 
@@ -81,12 +85,12 @@ public 	class Mover
 		{
 			if(i > 1000)
 			{
-//				System.out.println("DEBUG Problem in Looping closestTrader()");
+				mLogln("Problem in Looping closestTrader()");
 				System.exit(1);
 			}
 			for(Map.Entry<Integer[], Integer> entry : map.entrySet())
 			{
-//				System.out.println(entry.getValue() + " radius : " + (i+1));
+				mLogln(entry.getValue() + " radius : " + (i+1));
 			}
 
 			tempNeighborsMap = new HashMap<Integer[], Integer>();
@@ -103,7 +107,7 @@ public 	class Mover
 					{
 						outerNeighborsMap.put(m.getKey(), m.getValue());
 						visitedLocations.add((Integer[])m.getKey());
-//						System.out.println("location: " + m.getKey()[0] + "," + m.getKey()[1] + " : color: " + m.getValue() + " ref:" + m);
+						mLogln(" location: " + m.getKey()[0] + "," + m.getKey()[1] + " : color: " + m.getValue() + " ref:" + m);
 						if(isTrader(MapAnalyzer.wrapIntegerToIntArray(m.getKey())) && sack[m.getValue()] > 0)
 							return targetLocation = MapAnalyzer.wrapIntegerToIntArray(m.getKey());
 					}
@@ -118,6 +122,22 @@ public 	class Mover
 		}
 
 		//return targetLocation;
+	}
+
+	private Direction randomStep()
+	{
+		Random gen = new Random();
+		Direction dir;
+
+		do 
+		{
+			dir = Player.randomDirection(gen);
+			if(Player.color(Player.move(location, dir), board) >= 0 && sack[Player.color(Player.move(location, dir), board)] > 0)
+				return dir;
+		}
+		while(sack[Player.color(Player.move(location, dir), board)] <= 0);
+
+		return null;
 	}
 
 	/**
@@ -139,16 +159,7 @@ public 	class Mover
 					else if(Player.color(Player.move(location, Direction.E), board) >= 0 && sack[Player.color(Player.move(location, Direction.E), board)] > 0)
 						return Direction.E;
 					else 
-					{
-						Direction dir;
-						do 
-						{
-							dir = Player.randomDirection(gen);
-							if(Player.color(Player.move(location, dir), board) >= 0 && sack[Player.color(Player.move(location, dir), board)] > 0)
-								return dir;
-						}
-						while(sack[Player.color(Player.move(location, dir), board)] <= 0);
-					}
+						return randomStep();
 				}
 				case S: 
 				{
@@ -157,16 +168,7 @@ public 	class Mover
 					else if(Player.color(Player.move(location, Direction.W), board) >= 0 && sack[Player.color(Player.move(location, Direction.W), board)] > 0)
 						return Direction.W;
 					else 
-					{
-						Direction dir;
-						do 
-						{
-							dir = Player.randomDirection(gen);
-							if(Player.color(Player.move(location, dir), board) >= 0 && sack[Player.color(Player.move(location, dir), board)] > 0)
-								return dir;
-						}
-						while(sack[Player.color(Player.move(location, dir), board)] <= 0);
-					}
+						return randomStep();
 				}
 				case W: 
 				{
@@ -175,16 +177,7 @@ public 	class Mover
 					else if(Player.color(Player.move(location, Direction.S), board) >= 0 && sack[Player.color(Player.move(location, Direction.S), board)] > 0)
 						return Direction.S;
 					else 
-					{
-						Direction dir;
-						do 
-						{
-							dir = Player.randomDirection(gen);
-							if(Player.color(Player.move(location, dir), board) >= 0 && sack[Player.color(Player.move(location, dir), board)] > 0)
-								return dir;
-						}
-						while(sack[Player.color(Player.move(location, dir), board)] <= 0);
-					}
+						return randomStep();
 				}
 				case E: 
 				{
@@ -193,16 +186,7 @@ public 	class Mover
 					else if(Player.color(Player.move(location, Direction.SE), board) >= 0 && sack[Player.color(Player.move(location, Direction.SE), board)] > 0)
 						return Direction.SE;
 					else 
-					{
-						Direction dir;
-						do 
-						{
-							dir = Player.randomDirection(gen);
-							if(Player.color(Player.move(location, dir), board) >= 0 && sack[Player.color(Player.move(location, dir), board)] > 0)
-								return dir;
-						}
-						while(sack[Player.color(Player.move(location, dir), board)] <= 0);
-					}
+						return randomStep();
 				}
 				case NW: 
 				{
@@ -211,16 +195,7 @@ public 	class Mover
 					else if(Player.color(Player.move(location, Direction.W), board) >= 0 && sack[Player.color(Player.move(location, Direction.W), board)] > 0)
 						return Direction.W;
 					else 
-					{
-						Direction dir;
-						do 
-						{
-							dir = Player.randomDirection(gen);
-							if(Player.color(Player.move(location, dir), board) >= 0 && sack[Player.color(Player.move(location, dir), board)] > 0)
-								return dir;
-						}
-						while(sack[Player.color(Player.move(location, dir), board)] <= 0);
-					}
+						return randomStep();
 				}
 				case SE: 
 				{
@@ -229,20 +204,11 @@ public 	class Mover
 					else if(Player.color(Player.move(location, Direction.S), board) >= 0 && sack[Player.color(Player.move(location, Direction.S), board)] > 0)
 						return Direction.S;
 					else 
-					{
-						Direction dir;
-						do 
-						{
-							dir = Player.randomDirection(gen);
-							if(Player.color(Player.move(location, dir), board) >= 0 && sack[Player.color(Player.move(location, dir), board)] > 0)
-								return dir;
-						}
-						while(sack[Player.color(Player.move(location, dir), board)] <= 0);
-					}
+						return randomStep();
 				}
 				default:
 				{
-//					System.out.println("DEBUG problem in switch case");
+					mLogln("problem in switch case");
 					return null;
 				}
 			}//end switch
@@ -259,7 +225,7 @@ public 	class Mover
 
 		if(dx == 0 & dy == 0) //same spot
 		{
-//			System.out.println("DEBUG problem with nextStep()");
+			mLogln("problem with nextStep()");
 			return null;
 		}
 
@@ -275,7 +241,7 @@ public 	class Mover
 			}
 			else
 			{
-//				System.out.println("DEBUG Problems in nextStep Case dx == dy");
+				mLogln("Problems in nextStep Case dx == dy");
 				return null;
 			}
 		}
@@ -291,7 +257,7 @@ public 	class Mover
 			}
 			else
 			{
-//				System.out.println("DEBUG Problems in nextStep Case dx == 0");
+				mLogln("Problems in nextStep Case dx == 0");
 				return null;
 			}
 		}
@@ -307,7 +273,7 @@ public 	class Mover
 			}
 			else
 			{
-//				System.out.println("DEBUG Problems in nextStep Case dy == 0");
+				mLogln("Problems in nextStep Case dy == 0");
 				return null;
 			}
 		}
@@ -368,8 +334,23 @@ public 	class Mover
 
 		else
 		{
-//			System.out.println("DEBUG Problems in nextStep()");
+			mLogln("Problems in nextStep()");
 			return null;
+		}
+	}
+	
+	public void mLog(Object o)
+	{
+		if(MOVER_DEBUG && Player.DEBUG)
+		{
+			System.out.print("mLogDEBUG<P-" + player.name() + "><C-" + Player.color(player.currentLocation, board) + "> " + o);
+		}
+	}
+	public void mLogln(Object o)
+	{
+		if(MOVER_DEBUG && Player.DEBUG)
+		{
+			System.out.println("mLogDEBUG<" + player.name() + "> " + o);
 		}
 	}
 }

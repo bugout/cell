@@ -1,6 +1,7 @@
 package cell.g4.trade;
 
 import cell.g4.Board;
+import cell.g4.Player;
 import cell.g4.Sack;
 
 /**
@@ -8,12 +9,13 @@ import cell.g4.Sack;
  * Always trade the most valuable marbles for invaluable ones
  */
 public class MaxRateDiffTrade extends TradeAlgo {
-	public MaxRateDiffTrade(Board board, Sack sack) {
-		super(board, sack);
+	public MaxRateDiffTrade(Board board, Sack sack, Player player) {
+		super(board, sack, player);
 	}
 	
 	@Override
-	public void trade(double[] rate, int[] request, int[] give) {
+	public void trade(double[] rate, int[] request, int[] give, 
+			int[] savedLocation, int[][] savedPlayers, int[][] savedTraders) {
 		int valuable = valuableColor(rate);
 		int invaluable = invaluableColor(rate);
 		

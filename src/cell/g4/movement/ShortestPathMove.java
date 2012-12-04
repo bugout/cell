@@ -10,9 +10,9 @@ import cell.sim.Player.Direction;
 public class ShortestPathMove extends MoveAlgo {
 	private TraderFinder traderFinder;	
 	
-	public ShortestPathMove(Board board, Sack sack) {
-		super(board, sack);
-		traderFinder = new ClosestTraderFinder(board);
+	public ShortestPathMove(Board board, Sack sack, int playerIndex) {
+		super(board, sack, playerIndex);
+		traderFinder = new ClosestTraderFinder(board, playerIndex);
 	}
 	
 	@Override
