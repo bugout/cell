@@ -3,8 +3,8 @@ package cell.g4;
 public class WeightedSack extends Sack {
 	private int[] center = new int[2];
 	
-	public WeightedSack(int[] sack, Board board, int nTrader) {
-		super(sack, board, nTrader);
+	public WeightedSack(int[] sack, Board board, int nTrader, int nPlayer) {
+		super(sack, board, nTrader, nPlayer);
 		center[0] = center[1] = board.getBoard().length / 2;
 		super.reserves = calcWeightedReserve(center);
 	}
@@ -52,7 +52,7 @@ public class WeightedSack extends Sack {
 		dist = normalize(dist);
 		
 		for(int i=0; i < reserves.length; i++){
-			reserves[i]= Math.max((int) (dist[i] * board.dimension() / nTrader * 5) , 5);
+			reserves[i] = (int) (dist[i] * board.dimension() / nTrader * Math.max(nPlayer, 5));
 		}
 		return reserves;
 	}
