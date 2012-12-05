@@ -19,7 +19,7 @@ public class ShortestPathMove extends MoveAlgo {
 	public ShortestPathMove(Board board, Sack sack, Player player) {
 		super(board, sack, player);
 		traderFinder = new ClosestTraderFinder(board, player);
-		yield = new MinCostYieldMove(board, sack, player);
+		yield = new MaxControlYieldMove(board, sack, player);
 	}
 	
 	private boolean yieldOrNot() {
@@ -31,12 +31,6 @@ public class ShortestPathMove extends MoveAlgo {
 		
 		assert(board != null);
 		int nextTrader = traderFinder.findBestTrader(location, players, traders);
-		
-		// we are not close to any one
-		// yield
-		if (nextTrader == ClosestTraderFinder.NoClosestTrader) {
-			return yield.move(location, players, traders);					
-		}
 		
 		if (nextTrader < 0) {
 			nextTrader = -nextTrader;

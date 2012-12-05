@@ -100,6 +100,7 @@ public class ClosestTraderFinder extends TraderFinder {
 			}
 		}
 		
-		return NoClosestTrader;
+		// still chasing
+		return indices[Math.min(1, traders.length - 1)];
 	}
 }
