@@ -2,7 +2,7 @@
 
 sub mapSize {
     my $mapFile = shift;
-    my $count = `wc cell/map/$mapFile`;
+    my $count = `wc ../map/$mapFile`;
     my @wcinfo = split(/\s+/, $count);
     return int($wcinfo[1]/2) + 1;
 }
@@ -65,10 +65,10 @@ sub parseResults {
 }
 
 
-$numReps = 50;
+$numReps = 20;
 
-$teamList = `cat cell/players.list`;
-$playerList = "cell/temp.players.list";
+$teamList = `cat ../players.list`;
+$playerList = "../temp.players.list";
 @teams = split(/\s+/, $teamList);
 
 #@maps = ('g3-traps.txt', 'g5-single.txt', 'g0-rotate.txt', 'g4-concentric.txt', 'g4-even.txt', 'g4-explosion-big.txt', 'g4-wedges.txt', 'g3-even.txt');
@@ -104,7 +104,7 @@ for $map (@maps) {
                         `echo $player >> $playerList`;
                     }
                     for ($i = 0; $i < $numReps; $i++) {
-                        `java cell/sim/Cell 0 $marblesNum $traderNum $turnNum cell/map/$map $playerList 2> outfile`;
+                        `java cell/sim/Cell 0 $marblesNum $traderNum $turnNum ../map/$map $playerList 2> outfile`;
                         $result = `tail -$playerNum outfile`;
                         %totalRank = parseResults(\%totalRank, $result);
                         
