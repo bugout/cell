@@ -9,7 +9,7 @@ import cell.g4.Player;
 public class SafeTraderFinder {
 	private Board board;
 	private Player player;
-	private final static int topK = 4;
+	private final static int topK = 3;
 	
 	public SafeTraderFinder(Board board, Player player) {
 		this.board = board;

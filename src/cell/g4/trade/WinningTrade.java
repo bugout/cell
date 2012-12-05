@@ -45,7 +45,7 @@ public class WinningTrade extends TradeAlgo {
 			}
 		}
 		
-		if (giveValue > requestValue + 1)
+		if (giveValue > requestValue + 0.8)
 			return true;
 		else
 			return false;
