@@ -47,8 +47,6 @@ public class Player implements cell.sim.Player {
 	
 	private Path savedPath = null;
 	
-	private Game game = null;
-
 	private int findPlayerIndex(int[] location, int[][] players) {
 		int index = -1;
 		for (int i = 0; i < players.length; i++) {
@@ -74,15 +72,12 @@ public class Player implements cell.sim.Player {
 			movement = new ShortestPathMove(board, sacks, this);
 			yieldDispatcher = new YieldDispatcher(board, sacks, this);
 			
-			game = Game.initGame(location, players);
-			
 			queue = new TraderQueue();
 		}
 		// routines
 		savedTraders = traders;
 		savedPlayers = players;		
 		sacks.update(sack, location);
-		game.updateTrades(players, traders);
 		
 		/*
 		 * A new framework for movement
