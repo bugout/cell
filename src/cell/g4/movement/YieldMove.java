@@ -1,6 +1,7 @@
 package cell.g4.movement;
 
 import cell.g4.Board;
+import cell.g4.Player;
 import cell.g4.Sack;
 import cell.sim.Player.Direction;
 
@@ -9,8 +10,8 @@ import cell.sim.Player.Direction;
  */
 public abstract class YieldMove extends MoveAlgo {
 
-	public YieldMove(Board board, Sack sack, int playerIndex) {
-		super(board, sack, playerIndex);
+	public YieldMove(Board board, Sack sack, Player player) {
+		super(board, sack, player);
 	}
 
 	@Override

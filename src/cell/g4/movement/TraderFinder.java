@@ -1,15 +1,16 @@
 package cell.g4.movement;
 
 import cell.g4.Board;
+import cell.g4.Player;
 
 public abstract class TraderFinder {
-	protected int playerIndex;
+	protected Player player;
 	
 	protected Board board;
 	
-	public TraderFinder(Board board, int playerIndex) {
+	public TraderFinder(Board board, Player player) {
 		this.board = board;
-		this.playerIndex = playerIndex;
+		this.player = player;
 	}
 	
 	public abstract int findBestTrader(int[] location, int[][] teams, int[][] traders);

@@ -22,7 +22,7 @@ public class SafeTrade extends TradeAlgo {
 	
 	public SafeTrade(Board board, Sack sack, Player player) {
 		super(board, sack, player);
-		finder = new SafeTraderFinder(board, player.getOurIndex());
+		finder = new SafeTraderFinder(board, player);
 	}	
 	
 	@Override

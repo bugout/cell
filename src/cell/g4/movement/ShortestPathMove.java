@@ -1,6 +1,7 @@
 package cell.g4.movement;
 
 import java.util.List;
+import java.util.Random;
 
 import cell.g4.Board;
 import cell.g4.Player;
@@ -9,10 +10,20 @@ import cell.sim.Player.Direction;
 
 public class ShortestPathMove extends MoveAlgo {
 	private TraderFinder traderFinder;	
+	private YieldMove yield;
 	
-	public ShortestPathMove(Board board, Sack sack, int playerIndex) {
-		super(board, sack, playerIndex);
-		traderFinder = new ClosestTraderFinder(board, playerIndex);
+	private boolean lastYield = true;
+	
+	private Random rnd = new Random();
+	
+	public ShortestPathMove(Board board, Sack sack, Player player) {
+		super(board, sack, player);
+		traderFinder = new ClosestTraderFinder(board, player);
+		yield = new MinCostYieldMove(board, sack, player);
+	}
+	
+	private boolean yieldOrNot() {
+		return rnd.nextBoolean();
 	}
 	
 	@Override
@@ -21,9 +32,30 @@ public class ShortestPathMove extends MoveAlgo {
 		assert(board != null);
 		int nextTrader = traderFinder.findBestTrader(location, players, traders);
 		
-		List<Direction> dirs = board.nextMove(location, traders[nextTrader]);
+		// we are not close to any one
+		// yield
+		if (nextTrader == ClosestTraderFinder.NoClosestTrader) {
+			return yield.move(location, players, traders);					
+		}
 		
+		if (nextTrader < 0) {
+			nextTrader = -nextTrader;
+			if (lastYield == true) {
+				if (yieldOrNot()) {
+					return yield.move(location, players, traders);
+				}
+				else {
+					lastYield = false;
+				}
+			}
+		}
+		
+		List<Direction> dirs = board.nextMove(location, traders[nextTrader]);
 		Direction dir = pickDir(location, dirs);
+
+		// reset = true
+		if (board.mindist(location, traders[nextTrader]) == 1)
+			lastYield = true;
 		
 		return dir;
 	}

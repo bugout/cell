@@ -82,7 +82,7 @@ $playerList = "../temp.players.list";
 @traderNums = (5);
 
 #@playerNums = (1, 2, 5, 20);
-@playerNums = (3);
+@playerNums = (4);
 
 %totalRank = ();
 

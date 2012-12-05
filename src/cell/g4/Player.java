@@ -22,7 +22,7 @@ public class Player implements cell.sim.Player {
 	private final static boolean test = false;
 	
 	public static int versions = 0;
-	private int version = ++versions;
+	public int version = versions++;
 	private Random rnd = new Random();
 
 	// the map
@@ -71,8 +71,8 @@ public class Player implements cell.sim.Player {
 			
 			tradeDispatcher = new TradingDispatcher(board, sacks, this);
 			
-			movement = new ShortestPathMove(board, sacks, playerIndex);
-			yieldDispatcher = new YieldDispatcher(board, sacks, playerIndex);
+			movement = new ShortestPathMove(board, sacks, this);
+			yieldDispatcher = new YieldDispatcher(board, sacks, this);
 			
 			game = Game.initGame(location, players);
 			
