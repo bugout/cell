@@ -8,12 +8,12 @@ import cell.sim.Player.Direction;
 public abstract class MoveAlgo {
 	protected Sack sack = null;
 	protected Board board = null;
-	protected int playerIndex = -1;
+	protected Player player;
 	
-	public MoveAlgo(Board board, Sack sack, int playerIndex) {
+	public MoveAlgo(Board board, Sack sack, Player player) {
 		this.board = board;
 		this.sack = sack;
-		this.playerIndex = playerIndex;
+		this.player = player;
 	}
 	
 	public abstract Direction move(int[] location,

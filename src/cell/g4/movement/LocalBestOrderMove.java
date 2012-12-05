@@ -3,6 +3,7 @@ package cell.g4.movement;
 import java.util.List;
 
 import cell.g4.Board;
+import cell.g4.Player;
 import cell.g4.Sack;
 import cell.sim.Player.Direction;
 
@@ -17,9 +18,9 @@ public class LocalBestOrderMove extends MoveAlgo {
 
 	private SafeTraderFinder finder;
 	
-	public LocalBestOrderMove(Board board, Sack sack, int playerIndex) {
-		super(board, sack, playerIndex);
-		finder = new SafeTraderFinder(board, playerIndex);
+	public LocalBestOrderMove(Board board, Sack sack, Player player) {
+		super(board, sack, player);
+		finder = new SafeTraderFinder(board, player);
 	}
 
 	@Override
@@ -68,7 +69,7 @@ public class LocalBestOrderMove extends MoveAlgo {
 	
 	private boolean canReach(int[][] players, int[][] traders, int secondTid, int dist) {
 		for (int i = 0; i < players.length; i++) {
-			if (i == playerIndex)
+			if (i == player.getOurIndex())
 				continue;
 			
 			// player will go for the second trader, and it is faster than us

@@ -8,6 +8,8 @@ import cell.g4.Sack;
 public class TradingDispatcher {
 	protected final static Logger logger = Logger.getLogger(TradeAlgo.class);
 	
+	private Player player;
+	
 	private WinningTrade winningTrading;
 	private SafeTrade safeTrading;
 	private DefaultTrade refillTrading;
@@ -19,6 +21,8 @@ public class TradingDispatcher {
 		safeTrading = new SafeTrade(board, sack, player);
 		refillTrading = new DefaultTrade(board, sack, player);
 		winningTrading = new WinningTrade(board, sack, player);
+		
+		this.player = player;
 	}
 	
 	
@@ -30,7 +34,7 @@ public class TradingDispatcher {
 		
 		if (winningTrading.toUse(rate, request, give, savedLocation, savedPlayers, savedTraders))
 			return winningTrading;
-		else if (safeTrading.toUse(rate, request, give, savedLocation, savedPlayers, savedTraders)) {
+		else if (player.version==0 && safeTrading.toUse(rate, request, give, savedLocation, savedPlayers, savedTraders)) {
 			logger.log("Doing Safe Trade");
 			safeTradeCount++;
 			return safeTrading;

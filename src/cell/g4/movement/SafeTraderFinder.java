@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cell.g4.Board;
+import cell.g4.Player;
 
 public class SafeTraderFinder {
 	private Board board;
-	private int playerIndex;
+	private Player player;
 	private final static int topK = 4;
 	
-	public SafeTraderFinder(Board board, int playerIndex) {
+	public SafeTraderFinder(Board board, Player player) {
 		this.board = board;
-		this.playerIndex = playerIndex;
+		this.player = player;
 	}
 
-	
 	private void sort(int[] dists, int[] indices) {
 		for (int i = 1; i < dists.length; i++) {
 			int value = dists[i];
@@ -67,7 +67,7 @@ public class SafeTraderFinder {
 		int relax = inTrading ? 1 : 0; 
 				
 		for (int i = 0; i < dists.length; i++) {
-			if (playerIndex == i)
+			if (player.getOurIndex() == i)
 				continue;
 						
 			if (dists[i] <= ourdist + relax) // because we don't other group's move in this round, release constraint
