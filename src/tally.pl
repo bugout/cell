@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -w
 
 $numReps = 6;  # must be a multiple of (n choose 2) where n is number of teams in player list
 
@@ -8,8 +8,8 @@ $playerList = "../temp.players.list";
 
 
 $mapBaseDir = "..";
-#@maps = ('g4-even.txt', 'g5-dmz.txt', 'g5-single.txt');
-@maps = ('g4-even.txt');
+@maps = ('g4-even.txt', 'g5-dmz.txt', 'g5-single.txt');
+#@maps = ('g5-single.txt');
 
 $teamNums = scalar @teams;
 @playerNums = (2, $teamNums);
@@ -85,17 +85,54 @@ sub parseResults {
     return %totRank;
 }
 
+sub parseCounts {
+    my $totalRankRef = shift;
+    my %totRank = %$totalRankRef;
+    my $results = shift;
+    
+    @lines = split(/\n/, $results);
+    for $line (@lines) {
+        if ($line =~ /(\d): (.*):/) {
+            $totRank{$2}++;
+        }
+        else {
+            print "$results\n";
+            last;
+        }
+        
+    }
+    
+    return %totRank;
+}
+
+
+
 
 %totalRanks = ();
 for $playerNum (@playerNums) {
     $totalRanks{$playerNum} = {};
 }
+%totalRankCounts = ();
+for $playerNum (@playerNums) {
+    $totalRankCounts{$playerNum} = {};
+}
+
+
+%totalMapRanks = ();
+for $map (@maps) {
+    $totalMapRanks{$map} = {};
+}
+%totalMapRankCounts = ();
+for $map (@maps) {
+    $totalMapRankCounts{$map} = {};
+}
 
 
 %numReps = ();
+%numMapReps = ();
 
 for $map (@maps) {
-    $mapDim = mapSize($map);
+    #$mapDim = mapSize($map);
     
     for $traderNum (@traderNums) {
         for $playerNum (@playerNums) {
@@ -114,8 +151,17 @@ for $map (@maps) {
                     for ($i = 0; $i < $numIters; $i++) {
                         `java cell/sim/Cell 0 $marblesNum $traderNum $turnNums $mapBaseDir/map/$map $playerList 2> outfile`;
                         $result = `tail -$playerNum outfile`;
-                        my $hashRef = $totalRanks{$playerNum};  
+                        my $hashRef = $totalRanks{$playerNum};
                         %$hashRef = parseResults($hashRef, $result);
+                        
+                        my $hashRef2 = $totalRankCounts{$playerNum};
+                        %$hashRef2 = parseCounts($hashRef2, $result);
+                        
+                        my $mapHashRef = $totalMapRanks{$map};
+                        %$mapHashRef = parseResults($mapHashRef, $result);
+                        
+                        my $mapHashRef2 = $totalMapRankCounts{$map};
+                        %$mapHashRef2 = parseCounts($mapHashRef2, $result);
                     
                         #print "\n\n$result\n";
                         print "Initial marbles: $marblesNum\nTraders: $traderNum\n";
@@ -125,6 +171,7 @@ for $map (@maps) {
                         }
                         print "\n\n";
                         $numReps{$playerNum}++;
+                        $numMapReps{$map}++;
                     }
                 }
             }
@@ -136,10 +183,28 @@ for $map (@maps) {
 for $playerNum (keys %totalRanks) {
     my $hashRef = $totalRanks{$playerNum};
     my %totalRank = %$hashRef;
-    my $totalReps = $numReps{$playerNum}*$playerNum/$teamNums;
+  
+    my $hashRefCount = $totalRankCounts{$playerNum};
+    my %totalRankCounts = %$hashRefCount;
+    
     print "Results for games with $playerNum players:\n";
     for $group (sort {$totalRank{$a} <=> $totalRank{$b}} keys %totalRank) {
-        print "$group: ", $totalRank{$group}/$totalReps, "\n";
+        print "$group: ", $totalRank{$group}/$totalRankCounts{$group}, "\n";
+    }
+    print "\n";
+}
+
+
+for $map (keys %totalMapRanks) {
+    my $hashRef = $totalMapRanks{$map};
+    my %totalRank = %$hashRef;
+    
+    my $hashRefCount = $totalMapRankCounts{$map};
+    my %totalRankCounts = %$hashRefCount;
+    
+    print "Results for games with map $map:\n";
+    for $group (sort {$totalRank{$a} <=> $totalRank{$b}} keys %totalRank) {
+        print "$group: ", $totalRank{$group}/$totalRankCounts{$group}, "\n";
     }
     print "\n";
 }

@@ -1,7 +1,6 @@
 package cell.g4.movement;
 
 import java.util.List;
-import java.util.Random;
 
 import cell.g4.Board;
 import cell.g4.Player;
@@ -14,16 +13,17 @@ public class ShortestPathMove extends MoveAlgo {
 	
 	private boolean lastYield = true;
 	
-	private Random rnd = new Random();
+	private double yieldThreshold;
 	
-	public ShortestPathMove(Board board, Sack sack, Player player) {
+	public ShortestPathMove(Board board, Sack sack, Player player, double threshold) {
 		super(board, sack, player);
 		traderFinder = new ClosestTraderFinder(board, player);
 		yield = new MaxControlYieldMove(board, sack, player);
+		yieldThreshold = threshold;
 	}
 	
 	private boolean yieldOrNot() {
-		return rnd.nextBoolean();
+		return Math.random() < yieldThreshold;
 	}
 	
 	@Override
