@@ -72,7 +72,7 @@ sub parseResults {
 
     @lines = split(/\n/, $results);
     for $line (@lines) {
-        if ($line =~ /(\d): (\w+):/) {
+        if ($line =~ /(\d): (.*):/) {
             $totRank{$2} += $1;
         }
         else {
