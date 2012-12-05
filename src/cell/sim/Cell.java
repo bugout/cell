@@ -7,7 +7,7 @@ import javax.tools.*;
 public class Cell {
 
 	// configuration info that varies less
-	private static boolean gui = true;
+	private static boolean gui = false;
 	private static int turns = 100;
 	private static int traders = 2;
 	private static int marbles = 20;
@@ -59,7 +59,7 @@ public class Cell {
 			System.err.println(classFile.getAbsolutePath());
 			if (!classFile.exists() || recompile) {
 				// delete all class files
-				List <File> classFiles = directoryFiles("src/cell" + sep + group, ".class");
+				List <File> classFiles = directoryFiles("cell" + sep + group, ".class");
 				System.err.print("Deleting " + classFiles.size() + " class files...   ");
 				for (File file : classFiles)
 					file.delete();
@@ -69,7 +69,7 @@ public class Cell {
 				if (fileManager == null) fileManager = compiler.getStandardFileManager(null, null, null);
 				if (fileManager == null) throw new Exception("Cannot load file manager");
 				// compile all files
-				List <File> javaFiles = directoryFiles("src/cell" + sep + group, ".java");
+				List <File> javaFiles = directoryFiles("cell" + sep + group, ".java");
 				System.err.print("Compiling " + javaFiles.size() + " source files...   ");
 				Iterable<? extends JavaFileObject> units = fileManager.getJavaFileObjectsFromFiles(javaFiles);
 				boolean ok = compiler.getTask(null, fileManager, null, null, null, units).call();
@@ -183,12 +183,12 @@ public class Cell {
 			while ((req = server.nextRequest(0)) == 'I');
 			if (req != 'B')
 				throw new Exception("Invalid first request");
-		}
 		for (File f : directoryFiles("webpages", ".html"))
 			f.delete();
 		FileOutputStream out = new FileOutputStream("webpages/index.html");
 		out.write(game.state().getBytes());
 		out.close();
+		}
 		for (int t = 1 ; t <= turns; ++t) {
 			boolean f = true;
 			if (server != null) do {
@@ -200,10 +200,10 @@ public class Cell {
 				f = false;
 			} while (req == 'B');
 			boolean end = game.next();
-			out = new FileOutputStream("webpages/" + t + ".html");
-			out.write(game.state().getBytes());
-			out.close();
-			game.printPlayers();
+			//out = new FileOutputStream("webpages/" + t + ".html");
+			//out.write(game.state().getBytes());
+			//out.close();
+			//game.printPlayers();
 			if (end) break;
 		}
 		game.rank();
@@ -581,7 +581,6 @@ public class Cell {
 				try {
 					players[p].trade(copyD(rates), request, give);
 				} catch (Exception e) {
-					e.printStackTrace();
 					System.err.println("Player " + (p + 1) + " threw an exception during trade: " + e.getMessage());
 					player_location[p] = null;
 					round[p] = -1;

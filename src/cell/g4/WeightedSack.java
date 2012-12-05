@@ -52,7 +52,7 @@ public class WeightedSack extends Sack {
 		dist = normalize(dist);
 		
 		for(int i=0; i < reserves.length; i++){
-			reserves[i] = (int) (dist[i] * board.dimension() / nTrader * Math.max(nPlayer, 8));
+			reserves[i] = (int) (dist[i] * board.dimension() / nTrader * Math.max(nPlayer, 16));
 		}
 		return reserves;
 	}

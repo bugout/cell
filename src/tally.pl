@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-$numReps = 6;  # must be a multiple of (n choose 2) where n is number of teams in player list
+$numReps = 36;  # must be a multiple of (n choose 2) where n is number of teams in player list
 
 $teamList = `cat ../players.list`;
 $playerList = "../temp.players.list";
@@ -8,17 +8,17 @@ $playerList = "../temp.players.list";
 
 
 $mapBaseDir = "..";
-@maps = ('g4-even.txt', 'g5-dmz.txt', 'g5-single.txt');
+@maps = ('g3-traps.txt', 'g4-even.txt', 'g5-dmz.txt', 'g5-single.txt');
 #@maps = ('g5-single.txt');
 
 $teamNums = scalar @teams;
-@playerNums = (2, $teamNums);
+@playerNums = ($teamNums);
 #@playerNums = (1, 2, $teamNums, 4*$teamNums);
 
 @traderNums = ($teamNums);
 #@tradeNums = (1, $teamNums/2, $teamNums);
 
-@marbleNums = (10);
+@marbleNums = (20);
 #@marbleNums = (4, 10, 20, 100);
 
 $turnNums = 100;

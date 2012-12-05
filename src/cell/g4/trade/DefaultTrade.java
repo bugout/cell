@@ -55,6 +55,7 @@ public class DefaultTrade extends TradeAlgo {
 		return color;
 	}
 	
+	
 	private int maxAmountToGive(int color) {
 		return Math.max(0, sack.getStock(color) - sack.getReserve(color));
 	}

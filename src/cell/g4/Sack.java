@@ -22,7 +22,7 @@ public class Sack {
 		
 		reserves = new int[6];
 		for (int i = 0; i < 6; i++)
-			reserves[i] = (int) (dist[i] * board.dimension() / nTrader * Math.max(nPlayer, 8));
+			reserves[i] = (int) (dist[i] * board.dimension() / nTrader * Math.max(nPlayer, 16));
 		
 		this.nTrader = nTrader;
 	}
