@@ -3,8 +3,8 @@ package cell.g4;
 public class DynamicWeightedSack extends WeightedSack {
 	private int longest = -1;
 	
-	public DynamicWeightedSack(int[] sack, Board board) {
-		super(sack, board);	
+	public DynamicWeightedSack(int[] sack, Board board, int nTrader) {
+		super(sack, board, nTrader);	
 	}
 
 	@Override

@@ -64,7 +64,9 @@ public class Player implements cell.sim.Player {
 			int[][] players, int[][] traders) {
 		if (board == null) {
 			board = new Board(map);
-			sacks = new DynamicWeightedSack(sack,board);
+			
+			sacks = new DynamicWeightedSack(sack,board, traders.length);
+			
 			playerIndex = findPlayerIndex(location, players);
 			
 			tradeDispatcher = new TradingDispatcher(board, sacks, this);
