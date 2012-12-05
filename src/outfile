@@ -1,832 +1,852 @@
 Group: g1
-/home/jiacheng/workspace/cell/src/cell/g1/Player.class
+/Users/davidmauskop/Desktop/PPS/cell/src/cell/g1/Player.class
 Deleting 8 class files...   OK
 Compiling 7 source files...   Note: cell/g1/Path.java uses unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
 OK
 Loading player class...   OK
 Group: g4
-/home/jiacheng/workspace/cell/src/cell/g4/Player.class
-Deleting 30 class files...   OK
-Compiling 29 source files...   OK
+/Users/davidmauskop/Desktop/PPS/cell/src/cell/g4/Player.class
+Deleting 27 class files...   OK
+Compiling 26 source files...   OK
 Loading player class...   OK
 Group: g4
-/home/jiacheng/workspace/cell/src/cell/g4/Player.class
-Deleting 30 class files...   OK
-Compiling 29 source files...   OK
+/Users/davidmauskop/Desktop/PPS/cell/src/cell/g4/Player.class
+Deleting 27 class files...   OK
+Compiling 26 source files...   OK
 Loading player class...   OK
 Loaded a map with dimension: 5
 Board:
-0 1 2 3 4 X X X X 
-5 5 4 3 2 1 X X X 
-0 0 1 2 3 4 5 X X 
-5 4 3 2 1 0 0 1 X 
-2 3 4 5 5 4 3 2 1 
-X 0 0 1 2 3 4 5 5 
-X X 4 3 2 1 0 0 1 
-X X X 2 3 4 5 5 4 
-X X X X 3 2 1 0 0 
+0 0 0 0 0 X X X X 
+0 0 0 0 0 0 X X X 
+0 0 0 0 0 0 0 X X 
+0 0 0 0 0 0 0 0 X 
+0 0 0 0 0 0 0 0 0 
+X 0 0 0 0 0 0 0 0 
+X X 0 0 0 0 0 0 0 
+X X X 0 0 0 0 0 0 
+X X X X 0 0 0 0 0 
 ---------------
-Player 0: 4,5 [10,10,10,10,10,10]
-Player 1: 6,5 [10,10,10,10,10,10]
-Player 2: 5,8 [10,10,10,10,10,10]
+Player 0: 4,0 [10,10,10,10,10,10]
+Player 1: 7,5 [10,10,10,10,10,10]
+Player 2: 2,5 [10,10,10,10,10,10]
 ---------------
 ---------------
-Trader 0: 2,2
-Trader 1: 7,8
-Trader 2: 4,8
+Trader 0: 3,5
+Trader 1: 4,1
+Trader 2: 8,8
 ---------------
-Possible moves for player 0: W E NW N S SE (6)
+Possible moves for player 0: E N SE (3)
 min distance: 2147483647
 trader: null
-next trader: [2, 2]
-new distance: 3
-min distance: 3
-trader: [2, 2]
-next trader: [7, 8]
-new distance: 3
-min distance: 3
-trader: [2, 2]
-next trader: [4, 8]
-new distance: 3
-Player 0 moves W
+next trader: [3, 5]
+new distance: 6
+min distance: 2147483647
+trader: null
+next trader: [4, 1]
+new distance: 1
+min distance: 1
+trader: [4, 1]
+next trader: [8, 8]
+new distance: 8
+Player 0 moves E
 Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves W
-Possible moves for player 2: W NW N S (4)
-Player 2 moves N
-Player 2 trades with trader 2
-Rates: [1.2292618053284001,1.40202347457772,1.5934620581800332,1.7768012866583272,1.3114519502663915,1.120997710218799]
-Request: [0,0,0,0,0,50]
-Give: [7,5,8,8,7,7]
-Sack: [10,9,10,10,10,10]
-Request value: 56.049885510939944
-Give value: 59.60420439229061
+Player 1 moves E
+Possible moves for player 2: W E NW N S SE (6)
+Player 2 moves S
+Player 2 trades with trader 0
+Rates: [1.4993107024160914,1.197655775670313,1.3116539071220883,1.9834334801554547,1.3326812117250115,1.6429721649448576]
+Request: [0,63,0,0,0,0]
+Give: [3,10,10,10,10,10]
+Sack: [9,10,10,10,10,10]
+Request value: 75.45231386722972
+Give value: 79.18189750342553
 Transaction is done!
-Sack: [3,4,2,2,3,53]
+Sack: [6,63,0,0,0,0]
+Trader moved to 5,0
+Player 0 trades with trader 1
+Rates: [1.4212331330007717,1.529102251588447,1.917246559052618,1.6481567247956328,1.121473049726061,1.6861469850483095]
+Request: [27,0,0,0,26,0]
+Give: [0,10,10,10,0,10]
+Sack: [9,10,10,10,10,10]
+Request value: 67.53159388389842
+Give value: 67.80652520485008
+Transaction is done!
+Sack: [36,0,0,0,36,0]
 Trader moved to 0,5
 Possible moves for player 0: W E NW N S SE (6)
 min distance: 2147483647
 trader: null
-next trader: [2, 2]
-new distance: 2
-min distance: 2
-trader: [2, 2]
-next trader: [7, 8]
-new distance: 4
-min distance: 2
-trader: [2, 2]
-next trader: [3, 4]
-new distance: 1
+next trader: [0, 3]
+new distance: 6
+min distance: 2147483647
+trader: null
+next trader: [1, 1]
+new distance: 3
+min distance: 3
+trader: [1, 1]
+next trader: [8, 8]
+new distance: 7
 Player 0 moves N
 Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves W
-Possible moves for player 2: W NW S (3)
-Player 2 moves S
-Player 0 trades with trader 2
-Rates: [1.468251739365701,1.220748018631563,1.994950859399796,1.2485740538486252,1.0096215075895263,1.3745541529394285]
-Request: [0,0,0,0,32,0]
-Give: [4,4,5,5,0,4]
-Sack: [10,9,10,10,10,9]
-Request value: 32.30788824286484
-Give value: 32.471840209988876
-Transaction is done!
-Sack: [6,5,5,5,42,5]
-Trader moved to 0,5
-Trader moved to 7,8
-Possible moves for player 0: W E NW N S SE (6)
-min distance: 2147483647
-trader: null
-next trader: [2, 2]
-new distance: 2
-min distance: 2
-trader: [2, 2]
-next trader: [7, 8]
-new distance: 4
-min distance: 2
-trader: [2, 2]
-next trader: [4, 4]
-new distance: 1
-Player 0 moves S
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves W
-Possible moves for player 2: W NW N S (4)
-Player 2 moves S
-Player 0 trades with trader 2
-Rates: [1.7736046960236354,1.869813520643788,1.3973077988554106,1.6950083401991338,1.1458453786980836,1.9517745254171066]
-Request: [0,0,0,0,0,0]
-Give: [0,0,0,0,0,0]
-Sack: [6,5,5,5,42,4]
-Request value: 0.0
-Give value: 0.0
-Transaction is done!
-Sack: [6,5,5,5,42,4]
-Possible moves for player 0: W E NW N S SE (6)
-min distance: 2147483647
-trader: null
-next trader: [2, 2]
-new distance: 2
-min distance: 2
-trader: [2, 2]
-next trader: [7, 8]
-new distance: 4
-min distance: 2
-trader: [2, 2]
-next trader: [5, 8]
-new distance: 4
-Player 0 moves NW
-Possible moves for player 1: E NW N SE (4)
-Player 1 moves NW
-Possible moves for player 2: W NW N S (4)
-Player 2 moves S
-Player 2 trades with trader 1
-Rates: [1.043179522411736,1.1218157779296716,1.0726672872501384,1.0432221364512468,1.211068945611811,1.7479609767544544]
-Request: [95,0,0,0,0,0]
-Give: [3,2,2,2,2,51]
-Sack: [3,3,2,2,2,52]
-Request value: 99.10205462911492
-Give value: 101.17309667619811
-Transaction is done!
-Sack: [95,1,0,0,0,1]
-Possible moves for player 0: W E NW N S SE (6)
-min distance: 2147483647
-trader: null
-next trader: [2, 2]
-new distance: 1
-min distance: 1
-trader: [2, 2]
-next trader: [2, 0]
-new distance: 3
-min distance: 1
-trader: [2, 2]
-next trader: [5, 8]
-new distance: 5
-Player 0 moves NW
-Possible moves for player 1: E NW N SE (4)
 Player 1 moves E
-Possible moves for player 2: W NW N S (4)
-Player 2 moves N
-Player 0 trades with trader 0
-Rates: [1.8725602793541594,1.1203252923311386,1.0768179826167357,1.702871975370771,1.8130777354231022,1.6864766935997548]
-Request: [0,1,59,0,0,1]
-Give: [0,0,0,0,37,0]
-Sack: [6,4,4,5,42,4]
-Request value: 66.3390629603183
-Give value: 67.08387621065478
-Transaction is done!
-Sack: [6,5,63,5,5,5]
+Possible moves for player 2: W E NW N S SE (6)
+Player 2 moves NW
 Possible moves for player 0: W E NW N S SE (6)
+min distance: 2147483647
+trader: null
+next trader: [0, 3]
+new distance: 5
+min distance: 2147483647
+trader: null
+next trader: [1, 1]
+new distance: 2
+min distance: 2
+trader: [1, 1]
+next trader: [8, 8]
+new distance: 7
+Player 0 moves N
+Possible moves for player 1: W E NW N S SE (6)
+Player 1 moves SE
+Possible moves for player 2: W E NW N S SE (6)
+Player 2 moves NW
+Player 1 trades with trader 2
+Rates: [1.9792678469328795,1.2376550586820145,1.386024508382211,1.4133830900069677,1.6328808912099597,1.7303471434164481]
+Request: [0,58,0,0,0,0]
+Give: [1,10,10,10,10,10]
+Sack: [7,10,10,10,10,10]
+Request value: 71.78399340355685
+Give value: 75.98217476390889
+Transaction is done!
+Sack: [6,58,0,0,0,0]
+Possible moves for player 0: W E NW N S SE (6)
+min distance: 2147483647
+trader: null
+next trader: [0, 3]
+new distance: 4
+min distance: 2147483647
+trader: null
+next trader: [1, 1]
+new distance: 1
+min distance: 1
+trader: [1, 1]
+next trader: [5, 1]
+new distance: 3
+Player 0 moves N
+Possible moves for player 1: W NW N (3)
+Player 1 moves W
+Possible moves for player 2: W E NW N S SE (6)
+Player 2 moves N
+Player 2 trades with trader 0
+Rates: [1.6104169622728435,1.4565261505359253,1.098738346260212,1.1618723332667567,1.2740839602145781,1.9429598912707866]
+Request: [3,0,78,0,0,0]
+Give: [0,63,0,0,0,0]
+Sack: [3,63,0,0,0,0]
+Request value: 90.53284189511507
+Give value: 91.7611474837633
+Transaction is done!
+Sack: [6,0,78,0,0,0]
+Player 0 trades with trader 1
+Rates: [1.8123242944282187,1.2262546395739178,1.7134620172614883,1.992614587627158,1.5474222822779558,1.71686132207862]
+Request: [3,40,0,0,0,0]
+Give: [0,0,0,0,36,0]
+Sack: [33,0,0,0,36,0]
+Request value: 54.48715846624137
+Give value: 55.70720216200641
+Transaction is done!
+Sack: [36,40,0,0,0,0]
+Possible moves for player 0: W E NW N S SE (6)
+min distance: 2147483647
+trader: null
+next trader: [7, 7]
+new distance: 6
+min distance: 2147483647
+trader: null
+next trader: [1, 4]
+new distance: 3
 min distance: 2147483647
 trader: null
 next trader: [5, 1]
 new distance: 4
-min distance: 2147483647
-trader: null
-next trader: [2, 0]
-new distance: 2
-min distance: 2
-trader: [2, 0]
-next trader: [5, 8]
-new distance: 6
-Player 0 moves W
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves W
-Possible moves for player 2: W NW N (3)
-Player 2 moves N
+Player 0 moves S
+Possible moves for player 1: W E NW N (4)
+Player 1 moves N
+Possible moves for player 2: W E S SE (4)
+Player 2 moves SE
 Player 1 trades with trader 0
-Rates: [1.6589131686593612,1.3239502279493955,1.4527817929683824,1.619747096170781,1.2971448813932982,1.4549589687716509]
-Request: [0,0,0,0,39,0]
-Give: [4,8,6,6,6,8]
-Sack: [7,10,9,9,9,10]
-Request value: 50.58865037433863
-Give value: 55.08496887160059
+Rates: [1.0557620428672956,1.3435696813573443,1.0703079117192646,1.6367460488779821,1.2177533448658244,1.1491478561661053]
+Request: [72,0,0,0,0,0]
+Give: [0,58,0,0,0,0]
+Sack: [4,58,0,0,0,0]
+Request value: 76.01486708644528
+Give value: 77.92704151872597
 Transaction is done!
-Sack: [3,2,3,3,42,2]
-Player 2 trades with trader 2
-Rates: [1.157082495702348,1.6766273757235282,1.9699828370207497,1.6642260640218067,1.4450485013429781,1.9796183838150352]
-Request: [70,3,2,2,3,3]
-Give: [92,0,0,0,0,0]
-Sack: [95,0,0,0,0,0]
-Request value: 103.56807528389409
-Give value: 106.45158960461602
+Sack: [76,0,0,0,0,0]
+Trader moved to 7,0
+Player 2 trades with trader 1
+Rates: [1.7690590251435054,1.24669547136914,1.0092226448743729,1.1454870098372991,1.498310769899944,1.8873296836150897]
+Request: [1,0,75,0,0,0]
+Give: [0,0,78,0,0,0]
+Sack: [5,0,78,0,0,0]
+Request value: 77.46075739072147
+Give value: 78.71936630020109
 Transaction is done!
-Sack: [73,3,2,2,3,3]
+Sack: [6,0,75,0,0,0]
 Possible moves for player 0: W E NW N S SE (6)
 min distance: 2147483647
 trader: null
-next trader: [4, 0]
-new distance: 3
+next trader: [6, 4]
+new distance: 4
 min distance: 2147483647
 trader: null
-next trader: [2, 0]
+next trader: [1, 0]
 new distance: 1
 min distance: 1
-trader: [2, 0]
-next trader: [4, 2]
-new distance: 2
-Player 0 moves W
-Possible moves for player 1: E NW N SE (4)
-Player 1 moves NW
-Possible moves for player 2: W NW N S (4)
+trader: [1, 0]
+next trader: [5, 1]
+new distance: 3
+Player 0 moves NW
+Possible moves for player 1: W E NW N S SE (6)
+Player 1 moves W
+Possible moves for player 2: W E NW N S SE (6)
 Player 2 moves W
-Player 1 trades with trader 0
-Rates: [1.8984345683879225,1.6936906686442639,1.457476315736109,1.8197058304194509,1.2385717844656718,1.7699527295244384]
-Request: [0,0,1,0,35,1]
-Give: [0,0,0,0,39,0]
-Sack: [3,2,2,3,42,2]
-Request value: 46.577441501559065
-Give value: 48.3042995941612
-Transaction is done!
-Sack: [3,2,3,3,38,3]
 Player 0 trades with trader 1
-Rates: [1.2559168569417634,1.200322162128466,1.0142666548119177,1.952215267453342,1.1087172925081479,1.1703526685326704]
-Request: [0,0,0,0,0,0]
-Give: [0,0,0,0,0,0]
-Sack: [4,5,63,5,5,5]
-Request value: 0.0
-Give value: 0.0
+Rates: [1.5084189401449104,1.3700206235277328,1.132411239370131,1.8554300770902212,1.2857045895754136,1.8382587543175002]
+Request: [2,0,45,0,0,0]
+Give: [0,40,0,0,0,0]
+Sack: [34,40,0,0,0,0]
+Request value: 53.97534365194572
+Give value: 54.80082494110931
 Transaction is done!
-Sack: [4,5,63,5,5,5]
-Trader moved to 4,0
+Sack: [36,0,45,0,0,0]
 Possible moves for player 0: E N S SE (4)
 min distance: 2147483647
 trader: null
-next trader: [3, 2]
+next trader: [6, 4]
+new distance: 5
+min distance: 2147483647
+trader: null
+next trader: [4, 6]
+new distance: 6
+min distance: 2147483647
+trader: null
+next trader: [5, 1]
+new distance: 4
+Player 0 moves S
+Possible moves for player 1: W E NW N S SE (6)
+Player 1 moves W
+Possible moves for player 2: W E NW N S SE (6)
+Player 2 moves SE
+Possible moves for player 0: E N S SE (4)
+min distance: 2147483647
+trader: null
+next trader: [6, 4]
+new distance: 4
+min distance: 2147483647
+trader: null
+next trader: [4, 6]
+new distance: 6
+min distance: 2147483647
+trader: null
+next trader: [5, 1]
+new distance: 3
+Player 0 moves S
+Possible moves for player 1: W E NW N S SE (6)
+Player 1 moves NW
+Possible moves for player 2: W E NW N S SE (6)
+Player 2 moves SE
+Player 1 trades with trader 0
+Rates: [1.3290683733400144,1.1699956993460758,1.9118181636463614,1.8379437070319944,1.3995400303154302,1.398578236224396]
+Request: [0,76,0,0,0,0]
+Give: [67,0,0,0,0,0]
+Sack: [73,0,0,0,0,0]
+Request value: 88.91967315030176
+Give value: 89.04758101378096
+Transaction is done!
+Sack: [6,76,0,0,0,0]
+Possible moves for player 0: E N S SE (4)
+min distance: 2147483647
+trader: null
+next trader: [4, 4]
+new distance: 4
+min distance: 2147483647
+trader: null
+next trader: [4, 6]
+new distance: 6
+min distance: 2147483647
+trader: null
+next trader: [5, 1]
 new distance: 2
-min distance: 2
-trader: [3, 2]
-next trader: [0, 0]
-new distance: 2
-min distance: 2
-trader: [3, 2]
+Player 0 moves S
+Possible moves for player 1: W E NW N S SE (6)
+Player 1 moves N
+Possible moves for player 2: W E NW N S SE (6)
+Player 2 moves SE
+Player 2 trades with trader 1
+Rates: [1.9597454608349771,1.2164165202271227,1.2853826879556824,1.2522984811917266,1.8575297170397191,1.5528384885649058]
+Request: [4,72,0,0,0,0]
+Give: [0,0,75,0,0,0]
+Sack: [2,0,75,0,0,0]
+Request value: 95.42097129969274
+Give value: 96.40370159667619
+Transaction is done!
+Sack: [6,72,0,0,0,0]
+Trader moved to 8,2
+Possible moves for player 0: E N SE (3)
+min distance: 2147483647
+trader: null
+next trader: [4, 4]
+new distance: 4
+min distance: 2147483647
+trader: null
+next trader: [3, 5]
+new distance: 6
+min distance: 2147483647
+trader: null
+next trader: [5, 1]
+new distance: 1
+Player 0 moves SE
+Possible moves for player 1: W E NW N S SE (6)
+Player 1 moves N
+Possible moves for player 2: W E NW N S SE (6)
+Player 2 moves NW
+Player 1 trades with trader 0
+Rates: [1.352768686375465,1.0888542722002013,1.615771087907016,1.3014702296624927,1.2157456633079007,1.9116309525989614]
+Request: [2,72,0,0,0,0]
+Give: [0,76,0,0,0,0]
+Sack: [4,76,0,0,0,0]
+Request value: 81.10304497116542
+Give value: 82.7529246872153
+Transaction is done!
+Sack: [6,72,0,0,0,0]
+Trader moved to 4,4
+Trader moved to 7,0
+Player 2 trades with trader 1
+Rates: [1.513199903345853,1.8101846504457435,1.509182098499299,1.1783603160192908,1.32917800921792,1.7853035638834178]
+Request: [1,0,0,108,0,0]
+Give: [0,72,0,0,0,0]
+Sack: [5,72,0,0,0,0]
+Request value: 128.77611403342925
+Give value: 130.33329483209354
+Transaction is done!
+Sack: [6,0,0,108,0,0]
+Trader moved to 0,7
+Player 0 trades with trader 2
+Rates: [1.3804966840074404,1.8466228137231648,1.3174452158783698,1.0004889968986022,1.207707999378181,1.4488438953903677]
+Request: [4,0,0,53,0,0]
+Give: [0,0,45,0,0,0]
+Sack: [32,0,45,0,0,0]
+Request value: 58.547903571655674
+Give value: 59.285034714526645
+Transaction is done!
+Sack: [36,0,0,53,0,0]
+Possible moves for player 0: E NW N SE (4)
+min distance: 2147483647
+trader: null
 next trader: [4, 2]
 new distance: 2
+min distance: 2
+trader: [4, 2]
+next trader: [4, 1]
+new distance: 1
+min distance: 1
+trader: [4, 1]
+next trader: [7, 3]
+new distance: 2
+Player 0 moves N
+Possible moves for player 1: W E NW N S SE (6)
+Player 1 moves W
+Possible moves for player 2: W E NW N S SE (6)
+Player 2 moves W
+Player 0 trades with trader 1
+Rates: [1.3650938059751059,1.1068294317089178,1.4170423076808671,1.2415964542898332,1.3822949063085275,1.3532731306883639]
+Request: [1,58,0,0,0,0]
+Give: [0,0,0,53,0,0]
+Sack: [35,0,0,53,0,0]
+Request value: 65.56120084509234
+Give value: 65.80461207736116
+Transaction is done!
+Sack: [36,58,0,0,0,0]
+Possible moves for player 0: W E NW N S SE (6)
+min distance: 2147483647
+trader: null
+next trader: [4, 2]
+new distance: 1
+min distance: 1
+trader: [4, 2]
+next trader: [8, 6]
+new distance: 5
+min distance: 1
+trader: [4, 2]
+next trader: [7, 3]
+new distance: 3
+Player 0 moves E
+Possible moves for player 1: W E NW N S SE (6)
+Player 1 moves W
+Possible moves for player 2: W E NW N S SE (6)
+Player 2 moves W
+Trader moved to 2,7
+Possible moves for player 0: W E NW N S SE (6)
+min distance: 2147483647
+trader: null
+next trader: [6, 7]
+new distance: 5
+min distance: 2147483647
+trader: null
+next trader: [8, 6]
+new distance: 4
+min distance: 4
+trader: [8, 6]
+next trader: [7, 3]
+new distance: 3
+Player 0 moves S
+Possible moves for player 1: W E NW N S SE (6)
+Player 1 moves W
+Possible moves for player 2: W E NW N S SE (6)
+Player 2 moves E
+Possible moves for player 0: W E NW N S SE (6)
+min distance: 2147483647
+trader: null
+next trader: [6, 7]
+new distance: 5
+min distance: 2147483647
+trader: null
+next trader: [8, 6]
+new distance: 4
+min distance: 4
+trader: [8, 6]
+next trader: [7, 3]
+new distance: 2
+Player 0 moves S
+Possible moves for player 1: W E NW N S SE (6)
+Player 1 moves W
+Possible moves for player 2: W E NW N S SE (6)
+Player 2 moves SE
+Possible moves for player 0: E NW N SE (4)
+min distance: 2147483647
+trader: null
+next trader: [6, 7]
+new distance: 5
+min distance: 2147483647
+trader: null
+next trader: [8, 6]
+new distance: 4
+min distance: 4
+trader: [8, 6]
+next trader: [7, 3]
+new distance: 1
 Player 0 moves SE
 Possible moves for player 1: E N SE (3)
 Player 1 moves E
 Possible moves for player 2: W E NW N S SE (6)
-Player 2 moves S
-Possible moves for player 0: W E NW N S SE (6)
+Player 2 moves SE
+Player 0 trades with trader 2
+Rates: [1.2949398291661969,1.7651398878144402,1.8119775362889141,1.5242150276069248,1.0091812422812279,1.1979013785861525]
+Request: [4,0,0,0,96,0]
+Give: [0,58,0,0,0,0]
+Sack: [32,58,0,0,0,0]
+Request value: 102.06115857566266
+Give value: 102.37811349323754
+Transaction is done!
+Sack: [36,0,0,0,96,0]
+Trader moved to 4,1
+Possible moves for player 0: E NW N SE (4)
 min distance: 2147483647
 trader: null
-next trader: [3, 2]
-new distance: 1
-min distance: 1
-trader: [3, 2]
-next trader: [0, 0]
+next trader: [6, 7]
+new distance: 5
+min distance: 2147483647
+trader: null
+next trader: [8, 6]
 new distance: 3
-min distance: 1
-trader: [3, 2]
-next trader: [4, 2]
-new distance: 1
+min distance: 3
+trader: [8, 6]
+next trader: [8, 8]
+new distance: 5
 Player 0 moves E
 Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves E
+Player 1 moves W
 Possible moves for player 2: W E NW N S SE (6)
-Player 2 moves W
-Player 0 trades with trader 0
-Rates: [1.5004127947666286,1.4649566112939933,1.7566909425786172,1.0149421386211515,1.3852802879355377,1.3091948768506767]
-Request: [2,0,0,96,1,0]
-Give: [0,0,58,0,0,0]
-Sack: [4,5,63,4,4,5]
-Request value: 101.82055118509935
-Give value: 101.8880746695598
+Player 2 moves SE
+Replenish color 0 to 2
+Player 2 trades with trader 0
+Rates: [1.588812620778231,1.0115051282762997,1.2242895675118683,1.5665705143186834,1.5786203272667865,1.4872511258259804]
+Request: [2,163,0,0,0,0]
+Give: [0,0,0,108,0,0]
+Sack: [0,0,0,108,0,0]
+Request value: 168.0529611505933
+Give value: 169.1896155464178
 Transaction is done!
-Sack: [6,5,5,100,5,5]
-Player 1 trades with trader 2
-Rates: [1.35509084500744,1.0479261230180918,1.4164612607358995,1.5052228191021033,1.1364805005160532,1.4127892369264923]
-Request: [0,34,0,1,0,0]
-Give: [0,0,0,0,34,0]
-Sack: [3,2,3,2,37,3]
-Request value: 37.13471100171722
-Give value: 38.64033701754581
-Transaction is done!
-Sack: [3,36,3,3,3,3]
+Sack: [2,163,0,0,0,0]
+Trader moved to 8,2
+Trader moved to 8,0
+Trader moved to 0,6
+Trader moved to 2,8
+Trader moved to 8,6
 Possible moves for player 0: W E NW N S SE (6)
 min distance: 2147483647
 trader: null
-next trader: [2, 5]
+next trader: [3, 3]
 new distance: 4
 min distance: 4
-trader: [2, 5]
-next trader: [0, 0]
-new distance: 3
-min distance: 3
-trader: [0, 0]
-next trader: [4, 4]
+trader: [3, 3]
+next trader: [8, 6]
 new distance: 2
-Player 0 moves E
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves SE
-Possible moves for player 2: W E NW N S SE (6)
-Player 2 moves E
-Possible moves for player 0: W E NW N S SE (6)
-min distance: 2147483647
-trader: null
-next trader: [2, 5]
-new distance: 3
-min distance: 3
-trader: [2, 5]
-next trader: [0, 0]
-new distance: 3
-min distance: 3
-trader: [2, 5]
-next trader: [4, 4]
-new distance: 1
-Player 0 moves SE
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves W
-Possible moves for player 2: W E NW N S SE (6)
-Player 2 moves W
-Player 0 trades with trader 2
-Rates: [1.3883354993395702,1.9116591626904988,1.2469974237289567,1.316794967138995,1.7723328066765058,1.4532374170480842]
-Request: [0,0,99,0,0,1]
-Give: [0,0,0,95,0,0]
-Sack: [6,5,4,100,5,4]
-Request value: 124.9059823662148
-Give value: 125.09552187820452
-Transaction is done!
-Sack: [6,5,103,5,5,5]
-Possible moves for player 0: W E NW N S SE (6)
-min distance: 2147483647
-trader: null
-next trader: [2, 5]
-new distance: 3
-min distance: 3
-trader: [2, 5]
-next trader: [0, 0]
+min distance: 2
+trader: [8, 6]
+next trader: [8, 8]
 new distance: 4
-min distance: 3
-trader: [2, 5]
-next trader: [4, 5]
-new distance: 1
 Player 0 moves E
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves E
+Possible moves for player 1: (0)
 Possible moves for player 2: W E NW N S SE (6)
-Player 2 moves E
-Player 0 trades with trader 2
-Rates: [1.6619255303953386,1.2996868511719575,1.9443553562020548,1.4530608338705657,1.056238516475287,1.6452192692914311]
-Request: [0,0,0,0,180,0]
-Give: [0,0,98,0,0,0]
-Sack: [6,5,103,5,4,5]
-Request value: 190.12293296555166
-Give value: 190.54682490780138
-Transaction is done!
-Sack: [6,5,5,5,184,5]
+Player 2 moves SE
 Possible moves for player 0: W E NW N S SE (6)
 min distance: 2147483647
 trader: null
-next trader: [2, 5]
-new distance: 2
-min distance: 2
-trader: [2, 5]
-next trader: [0, 0]
-new distance: 5
-min distance: 2
-trader: [2, 5]
-next trader: [6, 6]
-new distance: 2
-Player 0 moves N
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves E
-Possible moves for player 2: W E NW N S SE (6)
-Player 2 moves W
-Player 2 trades with trader 2
-Rates: [1.1227666685623738,1.0138252746606942,1.5727885199930256,1.697942558106273,1.8822015093092141,1.7526703938829395]
-Request: [0,68,0,0,0,1]
-Give: [64,0,0,0,0,0]
-Sack: [67,3,2,2,3,2]
-Request value: 70.69278907081014
-Give value: 71.85706678799193
-Transaction is done!
-Sack: [3,71,2,2,3,3]
-Trader moved to 8,0
-Trader moved to 0,8
-Trader moved to 0,7
-Trader moved to 7,2
-Possible moves for player 0: W E NW N S SE (6)
-min distance: 2147483647
-trader: null
-next trader: [2, 5]
+next trader: [3, 3]
+new distance: 4
+min distance: 4
+trader: [3, 3]
+next trader: [8, 6]
 new distance: 1
 min distance: 1
-trader: [2, 5]
-next trader: [0, 0]
-new distance: 5
-min distance: 1
-trader: [2, 5]
-next trader: [6, 2]
-new distance: 6
-Player 0 moves N
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves W
-Possible moves for player 2: W E NW N S SE (6)
-Player 2 moves W
-Player 0 trades with trader 0
-Rates: [1.3532080783232563,1.4415449655436205,1.2322919130664722,1.7027059977955221,1.7670067317698521,1.639041544978709]
-Request: [1,0,254,0,0,0]
-Give: [0,0,0,0,178,0]
-Sack: [5,5,5,5,183,5]
-Request value: 314.3553539972072
-Give value: 314.5271982550337
+trader: [8, 6]
+next trader: [8, 8]
+new distance: 3
+Player 0 moves SE
+Possible moves for player 2: W NW N S (4)
+Player 2 moves S
+Player 0 trades with trader 1
+Rates: [1.0625258891003178,1.9792223230324406,1.8176138839223823,1.47316337198265,1.7210831494952727,1.098877190411757]
+Request: [155,0,0,0,0,0]
+Give: [0,0,0,0,96,0]
+Sack: [33,0,0,0,96,0]
+Request value: 164.69151281054926
+Give value: 165.22398235154617
 Transaction is done!
-Sack: [6,5,259,5,5,5]
-Possible moves for player 0: W E NW N S SE (6)
+Sack: [188,0,0,0,0,0]
+Trader moved to 3,3
+Player 2 trades with trader 2
+Rates: [1.7520218906288711,1.4537504674853257,1.9638697678828092,1.2724668031891544,1.9069765420363165,1.4688604347511425]
+Request: [6,0,0,176,0,0]
+Give: [0,163,0,0,0,0]
+Sack: [0,163,0,0,0,0]
+Request value: 234.46628870506441
+Give value: 236.9613262001081
+Transaction is done!
+Sack: [6,0,0,176,0,0]
+Trader moved to 0,5
+Possible moves for player 0: W E NW N (4)
 min distance: 2147483647
 trader: null
-next trader: [5, 2]
-new distance: 6
-min distance: 2147483647
-trader: null
-next trader: [0, 0]
+next trader: [3, 3]
 new distance: 5
 min distance: 5
+trader: [3, 3]
+next trader: [2, 3]
+new distance: 6
+min distance: 5
+trader: [3, 3]
+next trader: [0, 3]
+new distance: 8
+Player 0 moves W
+Possible moves for player 2: W NW N (3)
+Player 2 moves NW
+Possible moves for player 0: W E NW N (4)
+min distance: 2147483647
+trader: null
+next trader: [3, 3]
+new distance: 5
+min distance: 2147483647
+trader: null
+next trader: [2, 3]
+new distance: 6
+min distance: 2147483647
+trader: null
+next trader: [0, 3]
+new distance: 8
+min distance: 2147483647
 trader: [0, 0]
-next trader: [6, 2]
-new distance: 7
-Player 0 moves NW
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves W
-Possible moves for player 2: W E NW N S SE (6)
-Player 2 moves E
-Player 1 trades with trader 0
-Rates: [1.423897455782734,1.5893195574669132,1.1748109570076033,1.808279252653016,1.9251944753368386,1.26474410865943]
-Request: [0,0,56,0,0,0]
-Give: [1,33,2,3,2,3]
-Sack: [1,33,2,3,3,3]
-Request value: 65.78941359242579
-Give value: 69.2905238008171
-Transaction is done!
-Sack: [0,0,56,0,1,0]
-Possible moves for player 0: W E NW N S SE (6)
+next trader: [3, 3]
+new distance: 5
+min distance: 5
+trader: [3, 3]
+next trader: [2, 3]
+new distance: 6
+min distance: 5
+trader: [3, 3]
+next trader: [0, 3]
+new distance: 8
 min distance: 2147483647
-trader: null
-next trader: [4, 5]
-new distance: 3
-min distance: 2147483647
-trader: null
-next trader: [0, 0]
+trader: [0, 0]
+next trader: [3, 3]
 new distance: 4
 min distance: 4
-trader: [0, 0]
-next trader: [6, 2]
+trader: [3, 3]
+next trader: [2, 3]
+new distance: 5
+min distance: 4
+trader: [3, 3]
+next trader: [0, 3]
 new distance: 7
+min distance: 2147483647
+trader: null
+next trader: [3, 3]
+new distance: 5
+min distance: 2147483647
+trader: null
+next trader: [2, 3]
+new distance: 6
+min distance: 6
+trader: [2, 3]
+next trader: [0, 3]
+new distance: 8
 Player 0 moves W
-Possible moves for player 1: N S (2)
-Player 1 moves S
 Possible moves for player 2: W E NW N S SE (6)
-Player 2 moves N
-Player 1 trades with trader 2
-Rates: [1.15858480032781,1.4298404143369416,1.4997477821867846,1.990548724150793,1.6536510316018507,1.9930779131032073]
-Request: [52,2,0,3,3,2]
-Give: [0,0,53,0,0,0]
-Sack: [0,0,56,0,0,0]
-Request value: 78.02484553918434
-Give value: 79.48663245589958
-Transaction is done!
-Sack: [52,2,3,3,3,2]
-Possible moves for player 0: W E NW N S SE (6)
+Player 2 moves NW
+Possible moves for player 0: E NW N (3)
 min distance: 2147483647
 trader: null
-next trader: [4, 5]
-new distance: 3
+next trader: [3, 3]
+new distance: 5
 min distance: 2147483647
 trader: null
-next trader: [0, 0]
+next trader: [2, 3]
+new distance: 6
+min distance: 2147483647
+trader: null
+next trader: [0, 3]
+new distance: 8
+min distance: 2147483647
+trader: [0, 0]
+next trader: [3, 3]
+new distance: 5
+min distance: 5
+trader: [3, 3]
+next trader: [2, 3]
+new distance: 6
+min distance: 5
+trader: [3, 3]
+next trader: [0, 3]
+new distance: 8
+min distance: 2147483647
+trader: [0, 0]
+next trader: [3, 3]
 new distance: 3
 min distance: 3
-trader: [0, 0]
-next trader: [8, 4]
-new distance: 7
-Player 0 moves NW
-Possible moves for player 1: E NW N SE (4)
-Player 1 moves SE
-Possible moves for player 2: W E NW N S SE (6)
-Player 2 moves NW
-Player 2 trades with trader 0
-Rates: [1.344491286004484,1.0674478561389535,1.6173107134994564,1.7910715667506425,1.3099355069803262,1.4889694218960114]
-Request: [1,59,0,1,2,0]
-Give: [0,67,0,0,0,0]
-Sack: [2,70,2,2,1,3]
-Request value: 68.73485737891404
-Give value: 71.51900636130989
-Transaction is done!
-Sack: [3,62,2,3,3,3]
-Possible moves for player 0: W E S SE (4)
+trader: [3, 3]
+next trader: [2, 3]
+new distance: 4
+min distance: 3
+trader: [3, 3]
+next trader: [0, 3]
+new distance: 6
 min distance: 2147483647
 trader: null
-next trader: [1, 2]
-new distance: 1
-min distance: 1
-trader: [1, 2]
-next trader: [0, 0]
-new distance: 2
-min distance: 1
-trader: [1, 2]
-next trader: [8, 4]
+next trader: [3, 3]
+new distance: 5
+min distance: 2147483647
+trader: null
+next trader: [2, 3]
+new distance: 6
+min distance: 6
+trader: [2, 3]
+next trader: [0, 3]
 new distance: 8
-Player 0 moves S
-Possible moves for player 1: E NW N SE (4)
-Player 1 moves SE
+Player 0 moves N
 Possible moves for player 2: W E NW N S SE (6)
 Player 2 moves NW
-Player 0 trades with trader 0
-Rates: [1.0574937365963937,1.6296725522412747,1.0439074340048693,1.5652176241145002,1.2873089654834262,1.5741016868630977]
-Request: [0,0,0,0,0,0]
-Give: [0,0,0,0,0,0]
-Sack: [6,5,257,4,4,5]
-Request value: 0.0
-Give value: 0.0
-Transaction is done!
-Sack: [6,5,257,4,4,5]
-Player 1 trades with trader 2
-Rates: [1.2300433121930163,1.6263874199320143,1.6661856872948901,1.3115983710368537,1.8685161899708875,1.2272390261978496]
-Request: [0,0,1,2,0,44]
-Give: [49,0,0,0,0,0]
-Sack: [52,2,2,2,3,2]
-Request value: 58.287899582073976
-Give value: 60.2721222974578
-Transaction is done!
-Sack: [3,2,3,4,3,46]
 Possible moves for player 0: W E NW N S SE (6)
 min distance: 2147483647
 trader: null
-next trader: [3, 6]
+next trader: [3, 3]
 new distance: 4
 min distance: 2147483647
 trader: null
-next trader: [0, 0]
+next trader: [2, 3]
+new distance: 5
+min distance: 2147483647
+trader: null
+next trader: [0, 3]
+new distance: 7
+min distance: 2147483647
+trader: [0, 0]
+next trader: [3, 3]
+new distance: 4
+min distance: 4
+trader: [3, 3]
+next trader: [2, 3]
+new distance: 5
+min distance: 4
+trader: [3, 3]
+next trader: [0, 3]
+new distance: 7
+min distance: 2147483647
+trader: [0, 0]
+next trader: [3, 3]
 new distance: 2
 min distance: 2
-trader: [0, 0]
-next trader: [3, 7]
+trader: [3, 3]
+next trader: [2, 3]
+new distance: 3
+min distance: 2
+trader: [3, 3]
+next trader: [0, 3]
 new distance: 5
-Player 0 moves W
-Possible moves for player 1: E NW N (3)
-Player 1 moves N
+min distance: 2147483647
+trader: null
+next trader: [3, 3]
+new distance: 4
+min distance: 2147483647
+trader: null
+next trader: [2, 3]
+new distance: 5
+min distance: 5
+trader: [2, 3]
+next trader: [0, 3]
+new distance: 7
+Player 0 moves N
 Possible moves for player 2: W E NW N S SE (6)
-Player 2 moves E
+Player 2 moves NW
 Possible moves for player 0: W E NW N S SE (6)
 min distance: 2147483647
 trader: null
-next trader: [3, 6]
-new distance: 5
+next trader: [3, 3]
+new distance: 3
 min distance: 2147483647
 trader: null
-next trader: [0, 0]
+next trader: [2, 3]
+new distance: 4
+min distance: 2147483647
+trader: null
+next trader: [0, 3]
+new distance: 6
+min distance: 2147483647
+trader: [0, 0]
+next trader: [3, 3]
+new distance: 3
+min distance: 3
+trader: [3, 3]
+next trader: [2, 3]
+new distance: 4
+min distance: 3
+trader: [3, 3]
+next trader: [0, 3]
+new distance: 6
+min distance: 2147483647
+trader: [0, 0]
+next trader: [3, 3]
 new distance: 1
 min distance: 1
-trader: [0, 0]
-next trader: [3, 7]
+trader: [3, 3]
+next trader: [2, 3]
+new distance: 2
+min distance: 1
+trader: [3, 3]
+next trader: [0, 3]
+new distance: 4
+min distance: 2147483647
+trader: null
+next trader: [3, 3]
+new distance: 3
+min distance: 2147483647
+trader: null
+next trader: [2, 3]
+new distance: 4
+min distance: 4
+trader: [2, 3]
+next trader: [0, 3]
 new distance: 6
+Player 0 moves N
+Possible moves for player 2: W E NW N S SE (6)
+Player 2 moves NW
+Player 2 trades with trader 0
+Rates: [1.1408352354494924,1.4107945143385445,1.4337770922840907,1.9958286410087607,1.2619872174291413,1.443262946727347]
+Request: [39,40,40,0,40,40]
+Give: [0,0,0,136,0,0]
+Sack: [1,0,0,176,0,0]
+Request value: 266.48544501369514
+Give value: 271.4326951771915
+Transaction is done!
+Sack: [40,40,40,40,40,40]
+Trader moved to 8,0
+Possible moves for player 0: W E NW N S SE (6)
+min distance: 2147483647
+trader: null
+next trader: [0, 1]
+new distance: 5
+min distance: 5
+trader: [0, 1]
+next trader: [2, 3]
+new distance: 3
+min distance: 3
+trader: [2, 3]
+next trader: [0, 3]
+new distance: 5
+Player 0 moves N
+Possible moves for player 0: W E NW N S SE (6)
+min distance: 2147483647
+trader: null
+next trader: [0, 1]
+new distance: 4
+min distance: 4
+trader: [0, 1]
+next trader: [2, 3]
+new distance: 2
+min distance: 2
+trader: [2, 3]
+next trader: [0, 3]
+new distance: 4
+Player 0 moves N
+Possible moves for player 0: W E NW N S SE (6)
+min distance: 2147483647
+trader: null
+next trader: [0, 1]
+new distance: 3
+min distance: 3
+trader: [0, 1]
+next trader: [2, 3]
+new distance: 1
+min distance: 1
+trader: [2, 3]
+next trader: [0, 3]
+new distance: 3
 Player 0 moves NW
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves W
-Possible moves for player 2: W E NW N S SE (6)
-Player 2 moves E
-Player 2 trades with trader 0
-Rates: [1.985773247445112,1.5901367039843426,1.6732202273381311,1.230824698736047,1.6646101073291262,1.845997594860884]
-Request: [0,0,0,90,0,0]
-Give: [1,60,2,3,3,3]
-Sack: [1,61,2,3,3,3]
-Request value: 110.77422288624422
-Give value: 114.96471314396011
-Transaction is done!
-Sack: [0,1,0,90,0,0]
 Player 0 trades with trader 1
-Rates: [1.307526407738699,1.6614442492666124,1.5265335601733487,1.5273708683554066,1.5759222005364233,1.510750772853382]
-Request: [35,35,0,36,36,36]
-Give: [0,0,217,0,0,0]
-Sack: [5,5,257,4,4,4]
-Request value: 270.01955129801354
-Give value: 331.2577825576167
+Rates: [1.6771562729177294,1.8724733044114936,1.7772117258000377,1.23017699198813,1.5505314507615808,1.025520813550528]
+Request: [0,0,0,0,0,255]
+Give: [156,0,0,0,0,0]
+Sack: [180,0,0,0,0,0]
+Request value: 261.50780745538464
+Give value: 261.6363785751658
+Transaction is done!
+Sack: [24,0,0,0,0,255]
+Possible moves for player 0: W E NW N S SE (6)
+min distance: 2147483647
+trader: null
+next trader: [0, 1]
+new distance: 2
+min distance: 2
+trader: [0, 1]
+next trader: [3, 3]
+new distance: 1
+min distance: 1
+trader: [3, 3]
+next trader: [0, 3]
+new distance: 2
+Player 0 moves S
+Player 0 trades with trader 1
+Rates: [1.5801737607155646,1.1187806587058033,1.9989715786149365,1.6870808180701657,1.2987127817423318,1.7746361797008672]
+Request: [17,40,40,40,40,0]
+Give: [0,0,0,0,0,215]
+Sack: [23,0,0,0,0,255]
+Request value: 271.0047874174941
+Give value: 381.54677863568645
 Transaction is done!
 Sack: [40,40,40,40,40,40]
-Possible moves for player 1: E NW N SE (4)
-Player 1 moves E
-Possible moves for player 2: E S (2)
-Player 2 moves E
-Replenish color 0 to 2
-Player 2 trades with trader 2
-Rates: [1.1143706363043882,1.7890808275434722,1.868038702329054,1.0044546005228394,1.4305854339977837,1.611349638055195]
-Request: [2,0,0,86,0,0]
-Give: [0,0,0,90,0,0]
-Sack: [0,0,0,90,0,0]
-Request value: 88.61183691757296
-Give value: 90.40091404705555
-Transaction is done!
-Sack: [2,0,0,86,0,0]
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves E
-Possible moves for player 2: W (1)
-Player 2 moves W
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves E
-Possible moves for player 2: W S (2)
-Player 2 moves W
-Player 2 trades with trader 1
-Rates: [1.8387227087839086,1.7991416898285484,1.796935038179257,1.6254042554644212,1.9874698469259309,1.8264747992494166]
-Request: [3,3,2,65,3,3]
-Give: [0,0,0,83,0,0]
-Sack: [0,0,0,86,0,0]
-Request value: 131.6005738159093
-Give value: 134.90855320354697
-Transaction is done!
-Sack: [3,3,2,68,3,3]
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves E
-Possible moves for player 2: W E NW N S SE (6)
-Player 2 moves NW
-Player 1 trades with trader 2
-Rates: [1.0872791944440685,1.0514101624090144,1.5167635097040844,1.8071588640050742,1.7153107048536365,1.503896677358554]
-Request: [0,75,0,0,0,0]
-Give: [2,2,2,2,2,44]
-Sack: [3,2,2,2,2,44]
-Request value: 78.85576218067608
-Give value: 80.52729867460813
-Transaction is done!
-Sack: [1,75,0,0,0,0]
-Possible moves for player 1: NW N S SE (4)
-Player 1 moves N
-Possible moves for player 2: W E NW N S SE (6)
-Player 2 moves NW
-Replenish color 4 to 1
-Player 1 trades with trader 0
-Rates: [1.0313208455296672,1.1688535480823996,1.0845768559443978,1.2347462736853587,1.4517373065215278,1.0467819313722293]
-Request: [82,0,0,0,1,0]
-Give: [0,75,0,0,0,0]
-Sack: [0,75,0,0,0,0]
-Request value: 86.02004663995423
-Give value: 87.66401610617997
-Transaction is done!
-Sack: [82,0,0,0,1,0]
-Possible moves for player 1: W NW SE (3)
-Player 1 moves NW
-Possible moves for player 2: W E NW N S SE (6)
-Player 2 moves W
-Player 1 trades with trader 1
-Rates: [1.3051979297105532,1.083012703165112,1.4675737174268177,1.4403360960255225,1.4554009885198673,1.7671555823403846]
-Request: [0,78,2,2,3,3]
-Give: [79,0,0,0,0,0]
-Sack: [82,0,0,0,0,0]
-Request value: 99.95848018636417
-Give value: 103.1106364471337
-Transaction is done!
-Sack: [3,78,2,2,3,3]
-Player 2 trades with trader 2
-Rates: [1.4355439826383596,1.080270036298666,1.7154519560844745,1.2304603227035424,1.9904166844369715,1.3621335833195296]
-Request: [0,86,0,0,0,0]
-Give: [3,2,1,65,2,3]
-Sack: [3,3,2,66,2,3]
-Request value: 92.90322312168527
-Give value: 96.22977907115967
-Transaction is done!
-Sack: [0,87,1,1,0,0]
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves W
-Possible moves for player 2: E NW N S SE (5)
-Player 2 moves E
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves W
-Possible moves for player 2: E NW S (3)
-Player 2 moves E
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves S
-Possible moves for player 2: E (1)
-Player 2 moves E
-Player 2 trades with trader 0
-Rates: [1.0499056585397049,1.9734432578604646,1.3534563526288268,1.2870316660871262,1.2655840607783422,1.7983156458034761]
-Request: [136,0,3,3,3,3]
-Give: [0,83,0,0,0,0]
-Sack: [0,86,0,0,0,0]
-Request value: 159.90033273729316
-Give value: 163.79579040241856
-Transaction is done!
-Sack: [136,3,3,3,3,3]
-Player 1 trades with trader 2
-Rates: [1.0936912067670368,1.6948293134026922,1.2237616210076023,1.2071807818480567,1.5234581670407525,1.4659641462788178]
-Request: [110,0,3,2,0,0]
-Give: [0,76,0,0,0,0]
-Sack: [3,78,0,1,3,3]
-Request value: 126.39167917109297
-Give value: 128.8070278186046
-Transaction is done!
-Sack: [113,2,3,3,3,3]
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves E
-Possible moves for player 2: W NW S SE (4)
-Player 2 moves NW
-Player 2 trades with trader 2
-Rates: [1.483899310217423,1.086457137748372,1.5898218711069951,1.5115493608176727,1.2141921655104777,1.1297312030741122]
-Request: [0,179,0,0,1,0]
-Give: [134,0,0,0,0,0]
-Sack: [136,3,3,3,2,3]
-Request value: 195.69001982246905
-Give value: 198.84250756913468
-Transaction is done!
-Sack: [2,182,3,3,3,3]
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves E
-Possible moves for player 2: W S SE (3)
-Player 2 moves W
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves E
-Possible moves for player 2: W E S SE (4)
-Player 2 moves W
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves E
-Possible moves for player 2: W E S SE (4)
-Player 2 moves W
-Player 1 trades with trader 0
-Rates: [1.0550873987590457,1.8592774212769607,1.4505593490620385,1.0087949975358015,1.7641791942484757,1.8955817446855239]
-Request: [0,3,0,108,0,0]
-Give: [108,0,1,1,0,0]
-Sack: [111,0,3,3,3,3]
-Request value: 114.52769199769745
-Give value: 116.40879341257477
-Transaction is done!
-Sack: [3,3,2,110,3,3]
-Trader moved to 7,0
-Possible moves for player 1: W NW N S (4)
-Player 1 moves NW
-Possible moves for player 2: W E S SE (4)
-Player 2 moves S
-Player 2 trades with trader 1
-Rates: [1.1618155803526102,1.6777572769775473,1.1747567484644743,1.15349954821979,1.0721718358728816,1.5580213217377672]
-Request: [38,0,38,38,37,38]
-Give: [0,141,0,0,0,0]
-Sack: [2,181,2,2,3,2]
-Request value: 231.497899480733
-Give value: 236.56377605383418
-Transaction is done!
-Sack: [40,40,40,40,40,40]
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves W
-Possible moves for player 1: W E NW N S SE (6)
-Player 1 moves NW
-Player 1 trades with trader 0
-Rates: [1.3675854121799669,1.1033156269895676,1.5904928625990395,1.464153416821853,1.7782195147435098,1.2182503699690435]
-Request: [0,151,0,0,0,0]
-Give: [2,1,1,110,0,2]
-Sack: [3,3,2,110,1,2]
-Request value: 166.6006596754247
-Give value: 168.92235590429044
-Transaction is done!
-Sack: [1,153,1,0,1,0]
-Possible moves for player 1: NW N SE (3)
-Player 1 moves NW
-Possible moves for player 1: W E NW SE (4)
-Player 1 moves NW
-Possible moves for player 1: W NW SE (3)
-Player 1 moves NW
-Possible moves for player 1: NW S (2)
-Player 1 moves NW
-Possible moves for player 1: W (1)
-Player 1 moves W
-Replenish color 5 to 1
-Player 1 trades with trader 1
-Rates: [1.6990363306147243,1.8257756914220047,1.42669894120669,1.742387197389534,1.28355252320229,1.9357923816402747]
-Request: [0,0,0,0,211,1]
-Give: [0,150,0,0,0,0]
-Sack: [0,151,0,0,0,0]
-Request value: 272.7653747773235
-Give value: 273.8663537133007
-Transaction is done!
-Sack: [0,1,0,0,211,1]
-Possible moves for player 1: E S SE (3)
-Player 1 moves SE
-Possible moves for player 1: E N SE (3)
-Player 1 moves SE
-Replenish color 2 to 1
-Replenish color 3 to 1
-Replenish color 5 to 1
-Player 1 trades with trader 0
-Rates: [1.7938700614344767,1.6988521779167716,1.2762070944921073,1.453541322955831,1.890788077143295,1.9574402952728236]
-Request: [0,0,308,1,0,1]
-Give: [0,0,0,0,211,0]
-Sack: [0,0,0,0,211,0]
-Request value: 396.48276672179776
-Give value: 398.9562842772352
-Transaction is done!
-Sack: [0,0,308,1,0,1]
-Possible moves for player 1: E NW S SE (4)
-Player 1 moves SE
-Possible moves for player 1: W N S SE (4)
-Player 1 moves SE
-Possible moves for player 1: NW S SE (3)
-Player 1 moves SE
-Player 1 trades with trader 1
-Rates: [1.7470139599303673,1.3621543017195945,1.1270914520517632,1.46714244962899,1.7574614779513964,1.1622271229012044]
-Request: [40,40,0,40,40,40]
-Give: [0,0,267,0,0,0]
-Sack: [0,0,307,0,0,0]
-Request value: 299.83997248526214
-Give value: 300.9334176978208
-Transaction is done!
-Sack: [40,40,40,40,40,40]
-Trader moved to 7,2
-Trades: 37
-Conflicts: 0
-1: G1: finished at round 20
-2: G4 v1: finished at round 34
-3: G4 v0: finished at round 46
+Trader moved to 8,2
+Trades: 21
+Conflicts: 1
+1: G4 v1: finished at round 23
+2: G1: finished at round 27
+3: G4 v0: lost marbles at round 17

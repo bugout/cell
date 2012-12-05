@@ -47,6 +47,8 @@ public class Player implements cell.sim.Player {
 	
 	private Path savedPath = null;
 	
+	private double yieldThreshold = 0.25;
+	
 	private int findPlayerIndex(int[] location, int[][] players) {
 		int index = -1;
 		for (int i = 0; i < players.length; i++) {
@@ -71,7 +73,7 @@ public class Player implements cell.sim.Player {
 			
 			tradeDispatcher = new TradingDispatcher(board, sacks, this);
 			
-			movement = new ShortestPathMove(board, sacks, this);
+			movement = new ShortestPathMove(board, sacks, this, yieldThreshold);
 			yieldDispatcher = new YieldDispatcher(board, sacks, this);
 			
 			queue = new TraderQueue();
