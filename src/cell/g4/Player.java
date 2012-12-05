@@ -9,6 +9,7 @@ import cell.g4.movement.ShortestPathMove;
 import cell.g4.movement.TraderFinder;
 import cell.g4.movement.TraderLocator;
 import cell.g4.movement.TraderQueue;
+import cell.g4.movement.YieldDispatcher;
 import cell.g4.movement.YieldMove;
 import cell.g4.trade.TradeAlgo;
 import cell.g4.trade.TradingDispatcher;
@@ -18,7 +19,7 @@ import cell.g4.trade.TradingDispatcher;
 // use static variable to record the initial locations of our players
 // In the next round, find the indices of all of them
 public class Player implements cell.sim.Player {
-	private final static boolean test = true;
+	private final static boolean test = false;
 	
 	public static int versions = 0;
 	private int version = ++versions;
@@ -36,6 +37,8 @@ public class Player implements cell.sim.Player {
 
 	// movement algorithm
 	private MoveAlgo movement;
+
+	private YieldDispatcher yieldDispatcher;
 	
 	private TradingDispatcher tradeDispatcher;
 	private TraderLocator traderLocator;
@@ -68,9 +71,9 @@ public class Player implements cell.sim.Player {
 			
 			tradeDispatcher = new TradingDispatcher(board, sacks, this);
 			
-			//trading = new MergeTrade(board, sacks, this);
 			movement = new ShortestPathMove(board, sacks, playerIndex);
-		
+			yieldDispatcher = new YieldDispatcher(board, sacks, playerIndex);
+			
 			game = Game.initGame(location, players);
 			
 			queue = new TraderQueue();
@@ -110,22 +113,39 @@ public class Player implements cell.sim.Player {
 
 		if (test) {
 			
+			Direction dir = null;
 			traderLocator.update(queue, location, players, traders);
 			
 			if (queue.isEmpty()) {
-				// waiting move
+				// Idle move
 			}
 			else {
 				NextTrader nt = queue.first();
 				if (nt.isConflict()) {
-					// yielding move
+					YieldMove yielding = yieldDispatcher.pickYieldMove();
+					dir =  yielding.move(location, players, traders);
 				}
 				else {
 					// pick a path, normal move
+					Path path = nt.getStoredPath();
+					if (path != null) {
+						dir = path.popFirst();
+						if (path.length() == 0)
+							queue.removeFirst();
+					}
+					else {
+						dir = movement.move(location, players, traders);			
+					}
 				}
 			}
 			
-			return null;
+			int[] new_location = board.nextLoc(location, dir);		
+			int color = board.getColor(new_location);		
+			sacks.decrease(color);
+			
+			savedLocation = new_location;
+			
+			return dir;
 		}
 		else {
 		

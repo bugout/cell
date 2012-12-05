@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import cell.sim.Player.Direction;
+
 
 public class Player implements cell.sim.Player, Logger {
 	
@@ -15,30 +17,19 @@ public class Player implements cell.sim.Player, Logger {
 	private Graph graph=null;
 	private RouteAnalyzer routeAnalyzer=null;
 	private ArrayList<Node> nextSteps= new ArrayList<Node>();
-	private static int count=0;
-	private boolean isKing=true;
 
 	public void log(String message){
 		if(DEBUG)
 			System.err.println(message);
 	}
 	
-	public Player()
-	{
-		count++;
-		if(count==1)
-			isKing=true;
-		else
-			isKing=false;
-	}
 	public String name() {
 		return "G1";
 	}
 
 	public Direction move(int[][] board, int[] location, int[] sack,
 			int[][] players, int[][] traders)
-	{	
-		if(isKing){
+	{
 		Direction dir=null;
 		if(iniMarble==0){
 			iniMarble = sack[0];
@@ -90,6 +81,16 @@ public class Player implements cell.sim.Player, Logger {
 				chosen=n;
 			}
 		}
+		if(chosen==null){
+			for (;;) {
+				Direction tempdir = randomDirection();
+				int[] new_location = move(location, dir);
+				int color = color(new_location, board);
+				if (color >= 0 && sack[color] != 0) {
+					chosen=new Node(new_location[0],new_location[1],color);
+				}
+			}
+		}
 		log("chosen:"+Arrays.toString(chosen.getLocation()));
 		int di=chosen.getLocation()[0]-location[0];
 		int dj=chosen.getLocation()[1]-location[1];
@@ -119,11 +120,7 @@ public class Player implements cell.sim.Player, Logger {
 		
 		if(chosen!=null) 
 			savedSack[chosen.color]--;
-		return dir;	
-	}
-		else
-			return moveRandom(board, location, sack,
-			 players, traders);
+		return dir;		
 	}
 
 	public void trade(double[] rate, int[] request, int[] give)
@@ -232,24 +229,19 @@ public class Player implements cell.sim.Player, Logger {
 			return false;
 	}
 	
-	public Direction moveRandom(int[][] board, int[] location, int[] sack,
-            int[][] players, int[][] traders)
-{
-savedSack = copyI(sack);
-for (;;) {
-Direction dir = randomDirection();
-int[] new_location = move(location, dir);
-int color = color(new_location, board);
-if (color >= 0 && sack[color] != 0) {
-	savedSack[color]--;
-	return dir;
-}
-}
-}
-	
-	
-	
-	
+	private Direction randomDirection()
+	{
+		switch(gen.nextInt(6)) {
+			case 0: return Direction.E;
+			case 1: return Direction.W;
+			case 2: return Direction.SE;
+			case 3: return Direction.S;
+			case 4: return Direction.N;
+			case 5: return Direction.NW;
+			default: return null;
+		}
+	}
+
 	private static int[] move(int[] location, Player.Direction dir)
 	{
 		int di, dj;
@@ -287,27 +279,4 @@ if (color >= 0 && sack[color] != 0) {
 			return -1;
 		return board[i][j];
 	}
-
-	private int[] copyI(int[] a)
-	{
-		int[] b = new int [a.length];
-		for (int i = 0 ; i != a.length ; ++i)
-			b[i] = a[i];
-		return b;
-	}
-	
-	private Direction randomDirection()
-	{
-		switch(gen.nextInt(6)) {
-			case 0: return Direction.E;
-			case 1: return Direction.W;
-			case 2: return Direction.SE;
-			case 3: return Direction.S;
-			case 4: return Direction.N;
-			case 5: return Direction.NW;
-			default: return null;
-		}
-	}
-
-
 }

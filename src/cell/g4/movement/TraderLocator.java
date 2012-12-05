@@ -12,6 +12,7 @@ public class TraderLocator {
 		
 	}
 	
+	// Simulate current strategy
 	private void insertTraders(TraderQueue queue, int[] location, int[][] players, int[][] traders) {
 		for (int i = 0; i < traders.length; i++) {
 			
