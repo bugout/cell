@@ -34,7 +34,7 @@ public class TradingDispatcher {
 		
 		if (winningTrading.toUse(rate, request, give, savedLocation, savedPlayers, savedTraders))
 			return winningTrading;
-		else if (player.version==0 && safeTrading.toUse(rate, request, give, savedLocation, savedPlayers, savedTraders)) {
+		else if (safeTrading.toUse(rate, request, give, savedLocation, savedPlayers, savedTraders)) {
 			logger.log("Doing Safe Trade");
 			safeTradeCount++;
 			return safeTrading;
