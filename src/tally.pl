@@ -112,7 +112,7 @@ for $map (@maps) {
                         `echo $player >> $playerList`;
                     }
                     for ($i = 0; $i < $numIters; $i++) {
-                        `java cell/sim/Cell 0 $marblesNum $traderNum $turnNums ../map/$map $playerList 2> outfile`;
+                        `java cell/sim/Cell 0 $marblesNum $traderNum $turnNums $mapBaseDir/map/$map $playerList 2> outfile`;
                         $result = `tail -$playerNum outfile`;
                         my $hashRef = $totalRanks{$playerNum};  
                         %$hashRef = parseResults($hashRef, $result);
